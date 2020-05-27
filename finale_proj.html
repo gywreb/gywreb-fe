@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>A WEB TO SELL STUFF</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"
+    />
+    <link rel="stylesheet" href="https://use.fontawesome.com/d50eccb221.css" />
+    <link rel="stylesheet" href="dist/css/style.min.css" />
+  </head>
+  <body>
+    <div class="search-bar">
+      <div class="container">
+        <p class="flex a-center jc-spacebtw">
+          What are you Looking for?<span class="close">X</span>
+        </p>
+        <div class="search-zone row">
+          <input
+            class="col-xs-10 col-lg-10 search-input"
+            type="text"
+            placeholder="SEARCH PRODUCTS..."
+            aria-label="SEARCH PRODUCTS..."
+            autocomplete="off"
+            autocapitalize="sentences"
+            spellcheck="false"
+          />
+          <a
+            class="col-xs-1 col-lg-1 search-submit flex a-center jc-center"
+            href=""
+            ><i class="fa fa-search"></i
+          ></a>
+          <span class="col-xs-1 close">X</span>
+        </div>
+        <ul class="search-res"></ul>
+      </div>
+    </div>
+    <header>
+      <div class="container">
+        <nav class="nav-header">
+          <div class="row a-center">
+            <div class="col-xs-1 col-lg-4 menu">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+            <div class="col-xs-12 col-lg-4 logo flex a-center jc-center">
+              <a href="">
+                <img
+                  src="https://cdn.shopify.com/s/files/1/0031/6604/4224/files/Logo_2ada2153-df41-4969-b3ff-f572e2406abf_95x.png?v=1551530681"
+                  srcset="
+                    //cdn.shopify.com/s/files/1/0031/6604/4224/files/Logo_2ada2153-df41-4969-b3ff-f572e2406abf_95x.png?v=1551530681  1x,
+                    //cdn.shopify.com/s/files/1/0031/6604/4224/files/Logo_2ada2153-df41-4969-b3ff-f572e2406abf_190x.png?v=1551530681 2x
+                  "
+                  alt=""
+                />
+              </a>
+            </div>
+            <ul class="col-xs-10 col-lg-4 user_config flex a-center">
+              <li>
+                <a href="" class="search"
+                  ><i class="fa fa-search" aria-hidden="true"></i
+                ></a>
+              </li>
+              <li class="bag-items">
+                <a href=""
+                  ><i class="fa fa-shopping-bag"></i
+                  ><span class="quantity"></span
+                ></a>
+              </li>
+              <li>
+                <a href=""><i class="fa fa-user-o" aria-hidden="true"></i></a>
+              </li>
+              <li>
+                <a href=""><i class="fa fa-sliders"></i></a>
+              </li>
+            </ul>
+            <ul class="col-lg-12 user_nav flex a-center jc-center">
+              <li>
+                <a class="go-home active" href="">HOME</a>
+              </li>
+              <li>
+                <a
+                  data-crums="Collections"
+                  class="shop-all"
+                  href="./product-filter.html"
+                  >SHOP</a
+                >
+              </li>
+              <li>
+                <a href="">PAGES</a>
+              </li>
+              <li>
+                <a href="">BLOG</a>
+              </li>
+              <li>
+                <a href="">PORTFOLIO</a>
+              </li>
+              <li>
+                <a
+                  data-crums="Women's"
+                  class="women-only"
+                  href="./product-filter.html"
+                  >WOMEN</a
+                >
+              </li>
+              <li>
+                <a
+                  data-crums="Men's"
+                  class="men-only"
+                  href="./product-filter.html"
+                  >MEN</a
+                >
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+      <nav class="nav-fixed">
+        <div class="container">
+          <div class="row a-center jc-spacebtw">
+            <div class="col-xs-6 col-lg-1 menu">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+            <ul class="col-lg-6 user_nav flex a-center jc-center">
+              <li>
+                <a class="go-home active" href="">HOME</a>
+              </li>
+              <li>
+                <a
+                  data-crums="Collections"
+                  class="shop-all"
+                  href="./product-filter.html"
+                  >SHOP</a
+                >
+              </li>
+              <li>
+                <a href="">PAGES</a>
+              </li>
+              <li>
+                <a href="">BLOG</a>
+              </li>
+              <li>
+                <a href="">PORTFOLIO</a>
+              </li>
+              <li>
+                <a
+                  data-crums="Women's"
+                  class="women-only"
+                  href="./product-filter.html"
+                  >WOMEN</a
+                >
+              </li>
+              <li>
+                <a
+                  data-crums="Men's"
+                  class="men-only"
+                  href="./product-filter.html"
+                  >MEN</a
+                >
+              </li>
+            </ul>
+            <ul class="col-xs-6 col-lg-4 user_config flex a-center">
+              <li>
+                <a href="" class="search"
+                  ><i class="fa fa-search" aria-hidden="true"></i
+                ></a>
+              </li>
+              <li class="bag-items">
+                <a href=""
+                  ><i class="fa fa-shopping-bag"></i
+                  ><span class="quantity"></span
+                ></a>
+              </li>
+              <li>
+                <a href=""><i class="fa fa-user-o" aria-hidden="true"></i></a>
+              </li>
+              <li>
+                <a href=""><i class="fa fa-sliders"></i></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <div class="items-cart">
+      <div class="cart-close">
+        <a class="close-btn flex a-center jc-spacebtw" href=""
+          >SHOPPING CART<span>x</span></a
+        >
+      </div>
+      <div class="items-cart-body">
+        <div class="no-product-layer row a-center">
+          <i class="col-xs-12 fa fa-shopping-bag"></i>
+          <p class="col-xs-12">No Products in the Cart</p>
+        </div>
+        <ul></ul>
+        <div class="items-total">
+          <p class="flex a-center jc-spacebtw">TOTAL:<span></span></p>
+        </div>
+        <div class="items-checkout row a-center">
+          <div class="col-xs-12" style="position: relative;">
+            <input type="checkbox" class="items-agreeterm" id="item-agree" />
+            <label for="item-agree"
+              >I agree with the terms and conditions</label
+            >
+          </div>
+          <div class="col-xs-12">
+            <input
+              type="submit"
+              class="check_out"
+              value="PROCEED TO CHECKOUT"
+              disabled
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <nav class="nav-sidebar">
+      <div class="sidebar">
+        <a class="close">X Close</a>
+        <ul>
+          <li>
+            <a class="go-home active" href="">HOME<span>></span></a>
+          </li>
+          <li>
+            <a
+              data-crums="Collections"
+              class="shop-all"
+              href="./product-filter.html"
+              >SHOP<span>></span></a
+            >
+          </li>
+          <li>
+            <a href="">PAGES<span>></span></a>
+          </li>
+          <li>
+            <a href="">BLOG<span>></span></a>
+          </li>
+          <li>
+            <a href="">PORTFOLIO<span>></span></a>
+          </li>
+          <li>
+            <a
+              data-crums="Women's"
+              class="women-only"
+              href="./product-filter.html"
+              >WOMEN<span>></span></a
+            >
+          </li>
+          <li>
+            <a data-crums="Men's" class="men-only" href="./product-filter.html"
+              >MEN<span>></span></a
+            >
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="women-banner">
+      <div class="content flex a-center jc-center">
+        <div class="content-description">
+          <p class="title" data-crums="Women's">WOMEN'S</p>
+          <p class="discount">
+            Sales <br />
+            70% Off
+          </p>
+          <a href="" class="shop_now">SHOP NOW!</a>
+        </div>
+      </div>
+    </div>
+    <div class="women-quick-filter quick-filter">
+      <div class="container">
+        <div class="row">
+          <h5 class="col-lg-3">WOMEN'S</h5>
+          <ul class="col-lg-6 row">
+            <li><a href="" class="active" data-quickfilter="">ALL</a></li>
+            <li><a href="" data-quickfilter="NEW ARRIVALS">NEW ARRIVALS</a></li>
+            <li><a href="" data-quickfilter="SPECIALS">SPECIALS</a></li>
+            <li><a href="" data-quickfilter="BESTSELLERS">BESTSELLERS</a></li>
+            <li><a href="" data-quickfilter="MOST VIEWED">MOST VIEWED</a></li>
+            <li>
+              <a href="" data-quickfilter="FEATURED PRODUCTS"
+                >FEATURED PRODUCTS</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="women quick-view">
+      <div class="container">
+        <div class="women-quickview owl-carousel owl-theme"></div>
+      </div>
+    </div>
+    <div class="men-banner">
+      <div class="content flex a-center jc-center">
+        <div class="content-description">
+          <p class="title" data-crums="Men's">MEN'S</p>
+          <p class="discount">
+            New <br />
+            Arrival
+          </p>
+          <a href="" class="shop_now">SHOP NOW!</a>
+        </div>
+      </div>
+    </div>
+    <div class="men-quick-filter quick-filter">
+      <div class="container">
+        <div class="row">
+          <h5 class="col-lg-3">MEN'S</h5>
+          <ul class="col-lg-6 row">
+            <li><a href="" class="active" data-quickfilter="">ALL</a></li>
+            <li><a href="" data-quickfilter="NEW ARRIVALS">NEW ARRIVALS</a></li>
+            <li><a href="" data-quickfilter="SPECIALS">SPECIALS</a></li>
+            <li><a href="" data-quickfilter="BESTSELLERS">BESTSELLERS</a></li>
+            <li><a href="" data-quickfilter="MOST VIEWED">MOST VIEWED</a></li>
+            <li>
+              <a href="" data-quickfilter="FEATURED PRODUCTS"
+                >FEATURED PRODUCTS</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="men quick-view">
+      <div class="container">
+        <div class="men-quickview owl-carousel owl-theme"></div>
+      </div>
+    </div>
+    <div class="follow-us">
+      <h2><a href="">@ FOLLOW</a> US ON</h2>
+      <p>INSTAGRAM</p>
+    </div>
+    <div class="model-insta">
+      <div class="row">
+        <div class="col-xs-6 col-md-4 col-lg-2 model-avatar">
+          <a href="https://www.instagram.com/p/BoI7vNHgO39/"
+            ><img
+              src="//scontent.cdninstagram.com/v/t51.2885-15/sh0.08/e35/s640x640/41191633_1794417834010105_9035336461193856870_n.jpg?_nc_ht=scontent.cdninstagram.com&amp;_nc_ohc=5T5_-_f55TgAX_O9l9T&amp;oh=70cb91c7b49f0e35803fbf32d0c872bd&amp;oe=5EDF8EF0"
+              alt=""
+          /></a>
+        </div>
+        <div class="col-xs-6 col-md-4 col-lg-2 model-avatar">
+          <a href="https://www.instagram.com/p/BoI8L1mgtT3/"
+            ><img
+              src="//scontent.cdninstagram.com/v/t51.2885-15/sh0.08/e35/s640x640/41535896_175127640043250_8890815090769621512_n.jpg?_nc_ht=scontent.cdninstagram.com&amp;_nc_ohc=KQMLPKMGkGsAX_eU0UU&amp;oh=bacbd13074bbb4a2c9fadc8762785f8b&amp;oe=5EDDD0EB"
+              alt=""
+          /></a>
+        </div>
+        <div class="col-xs-6 col-md-4 col-lg-2 model-avatar">
+          <a href="https://www.instagram.com/p/BoI8MvNAHt4/"
+            ><img
+              src="//scontent.cdninstagram.com/v/t51.2885-15/sh0.08/e35/s640x640/41679798_1655617324583386_7848608077060065148_n.jpg?_nc_ht=scontent.cdninstagram.com&amp;_nc_ohc=zmSNJ7VbwloAX9WHXRE&amp;oh=42104173f9fdea3262737761d67a3115&amp;oe=5EDF9D03"
+              alt=""
+          /></a>
+        </div>
+        <div class="col-xs-6 col-md-4 col-lg-2 model-avatar">
+          <a href="https://www.instagram.com/p/BoI8Nm0AFPv/"
+            ><img
+              src="//scontent.cdninstagram.com/v/t51.2885-15/sh0.08/e35/s640x640/41767043_301606100429296_1066850695992338617_n.jpg?_nc_ht=scontent.cdninstagram.com&amp;_nc_ohc=0_0iqcFYMuAAX-wlzTT&amp;oh=cb52281d7fc1826054dc84e7fb7d694f&amp;oe=5EDECFBC"
+              alt=""
+          /></a>
+        </div>
+        <div class="col-xs-6 col-md-4 col-lg-2 model-avatar">
+          <a href="https://www.instagram.com/p/BoI7uPnAduL/"
+            ><img
+              src="//scontent.cdninstagram.com/v/t51.2885-15/sh0.08/e35/s640x640/41729890_280132739262546_2111516028705407805_n.jpg?_nc_ht=scontent.cdninstagram.com&amp;_nc_ohc=x9_R5V6DwpMAX_QjZA2&amp;oh=53f4f9dfbb81db8533165332d15168ad&amp;oe=5EDF6AB2"
+              alt=""
+          /></a>
+        </div>
+        <div class="col-xs-6 col-md-4 col-lg-2 model-avatar">
+          <a href="https://www.instagram.com/p/BoI7tXNAas7/"
+            ><img
+              src="//scontent.cdninstagram.com/v/t51.2885-15/sh0.08/e35/s640x640/41540514_2126866284197587_6599074063550517190_n.jpg?_nc_ht=scontent.cdninstagram.com&amp;_nc_ohc=P7UtE3XqsxYAX8FxYw5&amp;oh=cf28046a8d3bd9a41ec736e1d6ce64f0&amp;oe=5EDDDD6E"
+              alt=""
+          /></a>
+        </div>
+      </div>
+    </div>
+    <div class="newsletter-signup">
+      <div class="container">
+        <div class="title flex a-center">
+          <a href="">NEWSLETTER SIGNUP</a>
+          <span class="open">+</span>
+          <span class="close">-</span>
+        </div>
+        <div class="signup-zone">
+          <p>
+            Sign up for our e-mail and be the first who know our special offers!
+            Furthermore, we will give a 15% discount on the next order after you
+            sign up.
+          </p>
+          <form action="">
+            <div class="row a-center jc-center">
+              <input
+                class="col-xs-12 col-lg-8 email-input"
+                type="email"
+                value=""
+                placeholder="Enter your e-mail"
+                autocomplete="off"
+                autocapitalize="off"
+                spellcheck="false"
+              />
+              <a href="" class="col-xs-12 col-lg-2 join-us">JOIN US</a>
+            </div>
+          </form>
+        </div>
+        <div class="social-icon">
+          <ul class="flex a-center">
+            <li>
+              <a href=""><i class="fa fa-facebook-f"></i></a>
+            </li>
+            <li>
+              <a href=""><i class="fa fa-twitter"></i></a>
+            </li>
+            <li>
+              <a href=""><i class="fa fa-google"></i></a>
+            </li>
+            <li>
+              <a href=""><i class="fa fa-instagram"></i></a>
+            </li>
+            <li>
+              <a href=""><i class="fa fa-pinterest"></i></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="back-to-top">
+      <a href="">
+        <i class="fa fa-angle-up"></i>
+      </a>
+    </div>
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12 col-lg-2 footer-logo">
+            <a href="" class="">
+              <img
+                src="https://cdn.shopify.com/s/files/1/0031/6604/4224/files/Logo_2ada2153-df41-4969-b3ff-f572e2406abf_95x.png?v=1551530681"
+                alt=""
+              />
+            </a>
+          </div>
+          <div class="col-xs-12 col-lg-3 rights">
+            <p>
+              © Wokiee 2019. All Rights Reserved
+            </p>
+          </div>
+          <div class="col-xs-12 col-lg-7">
+            <ul class="payment-co row a-center jc-center">
+              <li class="col-xs-1">
+                <a href=""
+                  ><img
+                    src="https://cdn.shopify.com/s/files/1/0031/6604/4224/files/Stripe_x42.png?v=1542727763"
+                    alt=""
+                /></a>
+              </li>
+              <li class="col-xs-1">
+                <a href=""
+                  ><img
+                    src="https://cdn.shopify.com/s/files/1/0031/6604/4224/files/shopify_x42.png?v=1542727763"
+                    alt=""
+                /></a>
+              </li>
+              <li class="col-xs-1">
+                <a href=""
+                  ><img
+                    src="https://cdn.shopify.com/s/files/1/0031/6604/4224/files/AES256_x42.png?v=1542727763"
+                    alt=""
+                /></a>
+              </li>
+              <li class="col-xs-1">
+                <a href=""
+                  ><img
+                    src="https://cdn.shopify.com/s/files/1/0031/6604/4224/files/paypal_2_x42.png?v=1542727763"
+                    alt=""
+                /></a>
+              </li>
+              <li class="col-xs-1">
+                <a href=""
+                  ><img
+                    src="https://cdn.shopify.com/s/files/1/0031/6604/4224/files/visa_x42.png?v=1542727763"
+                    alt=""
+                /></a>
+              </li>
+              <li class="col-xs-1">
+                <a href=""
+                  ><img
+                    src="https://cdn.shopify.com/s/files/1/0031/6604/4224/files/mastercard_x42.png?v=1542727762"
+                    alt=""
+                /></a>
+              </li>
+              <li class="col-xs-1">
+                <a href=""
+                  ><img
+                    src="https://cdn.shopify.com/s/files/1/0031/6604/4224/files/discover_x42.png?v=1542727763"
+                    alt=""
+                /></a>
+              </li>
+              <li class="col-xs-1">
+                <a href=""
+                  ><img
+                    src="https://cdn.shopify.com/s/files/1/0031/6604/4224/files/american-express_x42.png?v=1542727763"
+                    alt=""
+                /></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+  <script
+    src="https://kit.fontawesome.com/504525663f.js"
+    crossorigin="anonymous"
+  ></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
+  <script src="dist/js/finale_proj.min.js"></script>
+</html>

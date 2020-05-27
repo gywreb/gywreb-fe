@@ -1,0 +1,31 @@
+{
+  "name": "gyweb-fe",
+  "version": "1.0.0",
+  "description": "learn fe web",
+  "main": "index.js",
+  "scripts": {
+    "start": "gulp watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "gywreb",
+  "license": "ISC",
+  "devDependencies": {
+    "browser-sync": "^2.26.7",
+    "es6-promise": "^4.2.8",
+    "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^6.1.0",
+    "gulp-clean-css": "^4.2.0",
+    "gulp-csscomb": "^3.0.8",
+    "gulp-imagemin": "^7.1.0",
+    "gulp-merge-media-queries": "^0.2.1",
+    "gulp-plumber": "^1.2.1",
+    "gulp-rename": "^1.4.0",
+    "gulp-sass": "^4.0.2",
+    "gulp-terser": "^1.2.0",
+    "gulp-uglify": "^3.0.2",
+    "node-sass": "^4.13.1",
+    "prettier": "^2.0.2",
+    "sass-loader": "^8.0.2",
+    "webpack": "^4.42.1"
+  }
+}

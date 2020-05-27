@@ -1,0 +1,23 @@
+.flex {
+  display: flex;
+  flex-wrap: wrap;
+}
+.inline-block {
+  display: inline-block;
+}
+.block {
+  display: block;
+}
+.jc-spacebtw {
+  justify-content: space-between;
+}
+
+.jc-center {
+  justify-content: center;
+}
+.a-center {
+  align-items: center;
+}
+.t-center {
+  text-align: center;
+}

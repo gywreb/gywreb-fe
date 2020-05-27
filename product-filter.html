@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>A LOT U CAN BUY</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"
+    />
+    <link rel="stylesheet" href="https://use.fontawesome.com/d50eccb221.css" />
+    <link rel="stylesheet" href="dist/css/style.min.css" />
+  </head>
+  <body>
+    <div class="filter-choices sided">
+      <div class="choices">
+        <a class="close" href="">X Close</a>
+        <ul class="choices-zone">
+          <li>
+            <select class="product-select-filters" name="product-filters" id="">
+              <option value="Name-Ascending" selected>Name Ascending</option>
+              <option value="Name-Descending">Name Descending</option>
+              <option value="Price-Ascending">Price Ascending</option>
+              <option value="Price-Descending">Price Descending</option>
+            </select>
+          </li>
+          <li class="choice-title">
+            <div class="title">
+              <a href="">COLLECTIONS</a>
+              <span class="vertical"></span>
+              <span class="horonzital"></span>
+            </div>
+            <ul class="collections dropdown">
+              <li><a class="Womens" href="">Women's</a></li>
+              <li><a class="Mens" href="">Men's</a></li>
+              <li><a href="">Trending</a></li>
+              <li><a href="">Best Seller</a></li>
+            </ul>
+          </li>
+          <li class="choice-title">
+            <div class="title">
+              <a href="">PRODUCT TYPE</a>
+              <span class="vertical"></span>
+              <span class="horonzital"></span>
+            </div>
+            <span class="vertical"></span>
+            <span class="horonzital"></span>
+            <ul class="product-types dropdown">
+              <li><a href="">Shirt</a></li>
+              <li><a href="">Hat</a></li>
+              <li><a href="">Jeans</a></li>
+              <li><a href="">Polo</a></li>
+              <li><a href="">Belt</a></li>
+              <li><a href="">Shoes</a></li>
+              <li><a href="">Sunglasses</a></li>
+              <li><a href="">Scarf</a></li>
+              <li><a href="">Bag</a></li>
+            </ul>
+          </li>
+          <li class="choice-title">
+            <div class="title">
+              <a href="">COLOR</a>
+              <span class="vertical"></span>
+              <span class="horonzital"></span>
+            </div>
+            <span class="vertical"></span>
+            <span class="horonzital"></span>
+            <ul class="dropdown color-palette flex a-center jc-spacebtw">
+              <li>
+                <a class="color-box" href="" style="background: #5733ff;"></a>
+              </li>
+              <li>
+                <a class="color-box" href="" style="background: #33ff57;"></a>
+              </li>
+              <li>
+                <a class="color-box" href="" style="background: #7e8a80;"></a>
+              </li>
+              <li>
+                <a class="color-box" href="" style="background: #a3ccce;"></a>
+              </li>
+              <li>
+                <a class="color-box" href="" style="background: #ffc300;"></a>
+              </li>
+            </ul>
+          </li>
+          <li class="choice-title">
+            <div class="title">
+              <a href="">SIZE</a>
+              <span class="vertical"></span>
+              <span class="horonzital"></span>
+            </div>
+            <span class="vertical"></span>
+            <span class="horonzital"></span>
+            <ul class="dropdown size-choice flex a-center">
+              <li><a class="size-box" href="">S</a></li>
+              <li><a class="size-box" href="">M</a></li>
+              <li><a class="size-box" href="">L</a></li>
+            </ul>
+          </li>
+          <li class="choice-title">
+            <div class="title">
+              <a href="">PRICE</a>
+              <span class="vertical"></span>
+              <span class="horonzital"></span>
+            </div>
+            <span class="vertical"></span>
+            <span class="horonzital"></span>
+            <ul class="price-choice dropdown">
+              <li>
+                <a href="" data-pmin="10" data-pmax="100">$10-$100</a>
+              </li>
+              <li>
+                <a href="" data-pmin="100" data-pmax="200">$100-$200</a>
+              </li>
+              <li>
+                <a href="" data-pmin="200" data-pmax="300">$200-$300</a>
+              </li>
+              <li>
+                <a href="" data-pmin="300" data-pmax="400">$300-$400</a>
+              </li>
+              <li>
+                <a href="" data-pmin="400" data-pmax="500">$400-$500</a>
+              </li>
+            </ul>
+          </li>
+          <li class="choice-title">
+            <div class="title">
+              <a href="">VENDOR</a>
+              <span class="vertical"></span>
+              <span class="horonzital"></span>
+            </div>
+            <span class="vertical"></span>
+            <span class="horonzital"></span>
+            <ul class="brand-choice dropdown">
+              <li><a href="">GAP</a></li>
+              <li><a href="">GUESS</a></li>
+              <li><a href="">LACOSTE</a></li>
+              <li><a href="">LEVI'S</a></li>
+              <li><a href="">POLO</a></li>
+              <li><a href="">ZARA</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="search-bar">
+      <div class="container">
+        <p class="flex a-center jc-spacebtw">
+          What are you Looking for?<span class="close">X</span>
+        </p>
+        <div class="search-zone row">
+          <input
+            class="col-xs-10 col-lg-10 search-input"
+            type="text"
+            placeholder="SEARCH PRODUCTS..."
+            aria-label="SEARCH PRODUCTS..."
+            autocomplete="off"
+            autocapitalize="sentences"
+            spellcheck="false"
+          />
+          <a
+            class="col-xs-1 col-lg-1 search-submit flex a-center jc-center"
+            href=""
+            ><i class="fa fa-search"></i
+          ></a>
+          <span class="col-xs-1 close">X</span>
+        </div>
+        <ul class="search-res"></ul>
+      </div>
+    </div>
+    <header>
+      <div class="container">
+        <nav class="nav-header">
+          <div class="row a-center">
+            <div class="col-xs-1 col-lg-4 menu">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+            <div class="col-xs-12 col-lg-4 logo flex a-center jc-center">
+              <a href="">
+                <img
+                  src="https://cdn.shopify.com/s/files/1/0031/6604/4224/files/Logo_2ada2153-df41-4969-b3ff-f572e2406abf_95x.png?v=1551530681"
+                  srcset="
+                    //cdn.shopify.com/s/files/1/0031/6604/4224/files/Logo_2ada2153-df41-4969-b3ff-f572e2406abf_95x.png?v=1551530681  1x,
+                    //cdn.shopify.com/s/files/1/0031/6604/4224/files/Logo_2ada2153-df41-4969-b3ff-f572e2406abf_190x.png?v=1551530681 2x
+                  "
+                  alt=""
+                />
+              </a>
+            </div>
+            <ul class="col-xs-10 col-lg-4 user_config flex a-center">
+              <li>
+                <a href="" class="search"
+                  ><i class="fa fa-search" aria-hidden="true"></i
+                ></a>
+              </li>
+              <li class="bag-items">
+                <a href=""
+                  ><i class="fa fa-shopping-bag"></i
+                  ><span class="quantity"></span
+                ></a>
+              </li>
+              <li>
+                <a href=""><i class="fa fa-user-o" aria-hidden="true"></i></a>
+              </li>
+              <li>
+                <a href=""><i class="fa fa-sliders"></i></a>
+              </li>
+            </ul>
+            <ul class="col-lg-12 user_nav flex a-center jc-center">
+              <li>
+                <a class="go-home" href="">HOME</a>
+              </li>
+              <li>
+                <a
+                  data-crums="Collections"
+                  class="shop-all"
+                  href="./product-filter.html"
+                  >SHOP</a
+                >
+              </li>
+              <li>
+                <a href="">PAGES</a>
+              </li>
+              <li>
+                <a href="">BLOG</a>
+              </li>
+              <li>
+                <a href="">PORTFOLIO</a>
+              </li>
+              <li>
+                <a
+                  data-crums="Women's"
+                  class="women-only"
+                  href="./product-filter.html"
+                  >WOMEN</a
+                >
+              </li>
+              <li>
+                <a
+                  data-crums="Men's"
+                  class="men-only"
+                  href="./product-filter.html"
+                  >MEN</a
+                >
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+      <nav class="nav-fixed">
+        <div class="container">
+          <div class="row a-center jc-spacebtw">
+            <div class="col-xs-6 col-lg-1 menu">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+            <ul class="col-lg-6 user_nav flex a-center jc-center">
+              <li>
+                <a class="go-home" href="">HOME</a>
+              </li>
+              <li>
+                <a
+                  data-crums="Collections"
+                  class="shop-all"
+                  href="./product-filter.html"
+                  >SHOP</a
+                >
+              </li>
+              <li>
+                <a href="">PAGES</a>
+              </li>
+              <li>
+                <a href="">BLOG</a>
+              </li>
+              <li>
+                <a href="">PORTFOLIO</a>
+              </li>
+              <li>
+                <a
+                  data-crums="Women's"
+                  class="women-only"
+                  href="./product-filter.html"
+                  >WOMEN</a
+                >
+              </li>
+              <li>
+                <a
+                  data-crums="Men's"
+                  class="men-only"
+                  href="./product-filter.html"
+                  >MEN</a
+                >
+              </li>
+            </ul>
+            <ul class="col-xs-6 col-lg-4 user_config flex a-center">
+              <li>
+                <a href="" class="search"
+                  ><i class="fa fa-search" aria-hidden="true"></i
+                ></a>
+              </li>
+              <li class="bag-items">
+                <a href=""
+                  ><i class="fa fa-shopping-bag"></i
+                  ><span class="quantity"></span
+                ></a>
+              </li>
+              <li>
+                <a href=""><i class="fa fa-user-o" aria-hidden="true"></i></a>
+              </li>
+              <li>
+                <a href=""><i class="fa fa-sliders"></i></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <div class="items-cart">
+      <div class="cart-close">
+        <a class="close-btn flex a-center jc-spacebtw" href=""
+          >SHOPPING CART<span>x</span></a
+        >
+      </div>
+      <div class="items-cart-body">
+        <div class="no-product-layer row a-center">
+          <i class="col-xs-12 fa fa-shopping-bag"></i>
+          <p class="col-xs-12">No Products in the Cart</p>
+        </div>
+        <ul></ul>
+        <div class="items-total">
+          <p class="flex a-center jc-spacebtw">TOTAL:<span></span></p>
+        </div>
+        <div class="items-checkout row a-center">
+          <div class="col-xs-12" style="position: relative;">
+            <input type="checkbox" class="items-agreeterm" id="item-agree" />
+            <label for="item-agree"
+              >I agree with the terms and conditions</label
+            >
+          </div>
+          <div class="col-xs-12">
+            <input
+              type="submit"
+              class="check_out"
+              value="PROCEED TO CHECKOUT"
+              disabled
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <nav class="nav-sidebar">
+      <div class="sidebar">
+        <a class="close">X Close</a>
+        <ul>
+          <li>
+            <a class="go-home" href="./finale_proj.html">HOME<span>></span></a>
+          </li>
+          <li>
+            <a data-crums="Collections" class="shop-all" href=""
+              >SHOP<span>></span></a
+            >
+          </li>
+          <li>
+            <a href="">PAGES<span>></span></a>
+          </li>
+          <li>
+            <a href="">BLOG<span>></span></a>
+          </li>
+          <li>
+            <a href="">PORTFOLIO<span>></span></a>
+          </li>
+          <li>
+            <a data-crums="Women's" class="women-only" href=""
+              >WOMEN<span>></span></a
+            >
+          </li>
+          <li>
+            <a data-crums="Men's" class="men-only" href="">MEN<span>></span></a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="product-filter-crums breadcrums">
+      <div class="container">
+        <h5><a class="go-home" href="./finale_proj.html">Home </a>/</h5>
+      </div>
+    </div>
+    <div class="product-filter-view">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-3 filter-choices fixed">
+            <div class="choices">
+              <a class="close" href="">X Close</a>
+              <ul class="choices-zone">
+                <li>
+                  <select
+                    class="product-select-filters"
+                    name="product-filters"
+                    id=""
+                  >
+                    <option value="Name-Ascending" selected
+                      >Name Ascending</option
+                    >
+                    <option value="Name-Descending">Name Descending</option>
+                    <option value="Price-Ascending">Price Ascending</option>
+                    <option value="Price-Descending">Price Descending</option>
+                  </select>
+                </li>
+                <li class="choice-title">
+                  <div class="title">
+                    <a href="">COLLECTIONS</a>
+                    <span class="vertical"></span>
+                    <span class="horonzital"></span>
+                  </div>
+                  <ul class="collections dropdown">
+                    <li><a class="Womens" href="">Women's</a></li>
+                    <li><a class="Mens" href="">Men's</a></li>
+                    <li><a href="">Trending</a></li>
+                    <li><a href="">Best Seller</a></li>
+                  </ul>
+                </li>
+                <li class="choice-title">
+                  <div class="title">
+                    <a href="">PRODUCT TYPE</a>
+                    <span class="vertical"></span>
+                    <span class="horonzital"></span>
+                  </div>
+                  <span class="vertical"></span>
+                  <span class="horonzital"></span>
+                  <ul class="product-types dropdown">
+                    <li><a href="">Shirt</a></li>
+                    <li><a href="">Hat</a></li>
+                    <li><a href="">Jeans</a></li>
+                    <li><a href="">Polo</a></li>
+                    <li><a href="">Belt</a></li>
+                    <li><a href="">Shoes</a></li>
+                    <li><a href="">Sunglasses</a></li>
+                    <li><a href="">Scarf</a></li>
+                    <li><a href="">Bag</a></li>
+                  </ul>
+                </li>
+                <li class="choice-title">
+                  <div class="title">
+                    <a href="">COLOR</a>
+                    <span class="vertical"></span>
+                    <span class="horonzital"></span>
+                  </div>
+                  <span class="vertical"></span>
+                  <span class="horonzital"></span>
+                  <ul class="dropdown color-palette flex a-center jc-spacebtw">
+                    <li>
+                      <a
+                        class="color-box"
+                        href=""
+                        style="background: #5733ff;"
+                      ></a>
+                    </li>
+                    <li>
+                      <a
+                        class="color-box"
+                        href=""
+                        style="background: #33ff57;"
+                      ></a>
+                    </li>
+                    <li>
+                      <a
+                        class="color-box"
+                        href=""
+                        style="background: #7e8a80;"
+                      ></a>
+                    </li>
+                    <li>
+                      <a
+                        class="color-box"
+                        href=""
+                        style="background: #a3ccce;"
+                      ></a>
+                    </li>
+                    <li>
+                      <a
+                        class="color-box"
+                        href=""
+                        style="background: #ffc300;"
+                      ></a>
+                    </li>
+                  </ul>
+                </li>
+                <li class="choice-title">
+                  <div class="title">
+                    <a href="">SIZE</a>
+                    <span class="vertical"></span>
+                    <span class="horonzital"></span>
+                  </div>
+                  <span class="vertical"></span>
+                  <span class="horonzital"></span>
+                  <ul class="dropdown size-choice flex a-center">
+                    <li><a class="size-box" href="">S</a></li>
+                    <li><a class="size-box" href="">M</a></li>
+                    <li><a class="size-box" href="">L</a></li>
+                  </ul>
+                </li>
+                <li class="choice-title">
+                  <div class="title">
+                    <a href="">PRICE</a>
+                    <span class="vertical"></span>
+                    <span class="horonzital"></span>
+                  </div>
+                  <span class="vertical"></span>
+                  <span class="horonzital"></span>
+                  <ul class="price-choice dropdown">
+                    <li>
+                      <a href="" data-pmin="10" data-pmax="100">$10-$100</a>
+                    </li>
+                    <li>
+                      <a href="" data-pmin="100" data-pmax="200">$100-$200</a>
+                    </li>
+                    <li>
+                      <a href="" data-pmin="200" data-pmax="300">$200-$300</a>
+                    </li>
+                    <li>
+                      <a href="" data-pmin="300" data-pmax="400">$300-$400</a>
+                    </li>
+                    <li>
+                      <a href="" data-pmin="400" data-pmax="500">$400-$500</a>
+                    </li>
+                  </ul>
+                </li>
+                <li class="choice-title">
+                  <div class="title">
+                    <a href="">VENDOR</a>
+                    <span class="vertical"></span>
+                    <span class="horonzital"></span>
+                  </div>
+                  <span class="vertical"></span>
+                  <span class="horonzital"></span>
+                  <ul class="brand-choice dropdown">
+                    <li><a href="">GAP</a></li>
+                    <li><a href="">GUESS</a></li>
+                    <li><a href="">LACOSTE</a></li>
+                    <li><a href="">LEVI'S</a></li>
+                    <li><a href="">POLO</a></li>
+                    <li><a href="">ZARA</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-xs-12 col-lg-9 filter-view">
+            <div class="title-options row">
+              <h5 class="col-lg-6 col-xs-12 title"></h5>
+              <div class="col-lg-6 col-xs-12 options flex a-center jc-spacebtw">
+                <a class="filter-open" href="">
+                  <i class="fas fa-filter"></i>
+                  FILTER
+                </a>
+                <div class="grid-view flex a-center">
+                  <a class="grid-choice grid-one" href=""
+                    ><i class="fa fa-square-o" aria-hidden="true"></i
+                  ></a>
+                  <a class="grid-choice grid-two active" href=""
+                    ><i class="fa fa-th-large"></i
+                  ></a>
+                  <a class="grid-choice grid-three" href=""
+                    ><i class="fa fa-th"></i
+                  ></a>
+                </div>
+              </div>
+            </div>
+            <div class="filtered-product">
+              <div class="filtered-product-group row"></div>
+            </div>
+            <div class="render-product flex a-center jc-center">
+              <a class="see-more" class="" href="">NO MORE PRODUCT</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="newsletter-signup">
+      <div class="container">
+        <div class="title flex a-center">
+          <a href="">NEWSLETTER SIGNUP</a>
+          <span class="open">+</span>
+          <span class="close">-</span>
+        </div>
+        <div class="signup-zone">
+          <p>
+            Sign up for our e-mail and be the first who know our special offers!
+            Furthermore, we will give a 15% discount on the next order after you
+            sign up.
+          </p>
+          <form action="">
+            <div class="row a-center jc-center">
+              <input
+                class="col-xs-12 col-lg-8 email-input"
+                type="email"
+                value=""
+                placeholder="Enter your e-mail"
+                autocomplete="off"
+                autocapitalize="off"
+                spellcheck="false"
+              />
+              <a href="" class="col-xs-12 col-lg-2 join-us">JOIN US</a>
+            </div>
+          </form>
+        </div>
+        <div class="social-icon">
+          <ul class="flex a-center">
+            <li>
+              <a href=""><i class="fa fa-facebook-f"></i></a>
+            </li>
+            <li>
+              <a href=""><i class="fa fa-twitter"></i></a>
+            </li>
+            <li>
+              <a href=""><i class="fa fa-google"></i></a>
+            </li>
+            <li>
+              <a href=""><i class="fa fa-instagram"></i></a>
+            </li>
+            <li>
+              <a href=""><i class="fa fa-pinterest"></i></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="back-to-top">
+      <a href="">
+        <i class="fa fa-angle-up"></i>
+      </a>
+    </div>
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12 col-lg-2 footer-logo">
+            <a href="" class="">
+              <img
+                src="https://cdn.shopify.com/s/files/1/0031/6604/4224/files/Logo_2ada2153-df41-4969-b3ff-f572e2406abf_95x.png?v=1551530681"
+                alt=""
+              />
+            </a>
+          </div>
+          <div class="col-xs-12 col-lg-3 rights">
+            <p>
+              © Wokiee 2019. All Rights Reserved
+            </p>
+          </div>
+          <div class="col-xs-12 col-lg-7">
+            <ul class="payment-co row a-center jc-center">
+              <li class="col-xs-1">
+                <a href=""
+                  ><img
+                    src="https://cdn.shopify.com/s/files/1/0031/6604/4224/files/Stripe_x42.png?v=1542727763"
+                    alt=""
+                /></a>
+              </li>
+              <li class="col-xs-1">
+                <a href=""
+                  ><img
+                    src="https://cdn.shopify.com/s/files/1/0031/6604/4224/files/shopify_x42.png?v=1542727763"
+                    alt=""
+                /></a>
+              </li>
+              <li class="col-xs-1">
+                <a href=""
+                  ><img
+                    src="https://cdn.shopify.com/s/files/1/0031/6604/4224/files/AES256_x42.png?v=1542727763"
+                    alt=""
+                /></a>
+              </li>
+              <li class="col-xs-1">
+                <a href=""
+                  ><img
+                    src="https://cdn.shopify.com/s/files/1/0031/6604/4224/files/paypal_2_x42.png?v=1542727763"
+                    alt=""
+                /></a>
+              </li>
+              <li class="col-xs-1">
+                <a href=""
+                  ><img
+                    src="https://cdn.shopify.com/s/files/1/0031/6604/4224/files/visa_x42.png?v=1542727763"
+                    alt=""
+                /></a>
+              </li>
+              <li class="col-xs-1">
+                <a href=""
+                  ><img
+                    src="https://cdn.shopify.com/s/files/1/0031/6604/4224/files/mastercard_x42.png?v=1542727762"
+                    alt=""
+                /></a>
+              </li>
+              <li class="col-xs-1">
+                <a href=""
+                  ><img
+                    src="https://cdn.shopify.com/s/files/1/0031/6604/4224/files/discover_x42.png?v=1542727763"
+                    alt=""
+                /></a>
+              </li>
+              <li class="col-xs-1">
+                <a href=""
+                  ><img
+                    src="https://cdn.shopify.com/s/files/1/0031/6604/4224/files/american-express_x42.png?v=1542727763"
+                    alt=""
+                /></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+  <script
+    src="https://kit.fontawesome.com/504525663f.js"
+    crossorigin="anonymous"
+  ></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
+  <script src="dist/js/finale_proj.min.js"></script>
+</html>
