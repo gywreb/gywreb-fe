@@ -652,6 +652,17 @@ $(function () {
     window.location.href = "./finale_proj.html";
   });
 
+  // when header dropdown is hover
+  $(".header-dropdown").hover(
+    function () {
+      // over
+      $(this).parent().find("> a").addClass("active");
+    },
+    function () {
+      // out
+      $(this).parent().find("> a").removeClass("active");
+    }
+  );
   $(window).scroll(function () {
     const currentPos = $(window).scrollTop();
     if (currentPos > 77) {
@@ -1743,6 +1754,25 @@ $(function () {
     ? JSON.parse(products_incart_raw)
     : [];
   var products_incart = [...products_incart_view];
+
+  // contact information init
+  const contact_info_raw = localStorage.getItem("contact_info") || {};
+  const contact_info_get = contact_info_raw.length
+    ? JSON.parse(contact_info_raw)
+    : {};
+  var contact_infomation = { ...contact_info_get };
+
+  // shipping method init
+  const shipping_method_raw = localStorage.getItem("shipping_method") || {};
+  const shipping_method_get = shipping_method_raw.length
+    ? JSON.parse(shipping_method_raw)
+    : {};
+  var shipping_method = "Normal Shipping";
+  var shipping_price = 20;
+  var shipping_method = shipping_method_get.length
+    ? { ...shipping_method_get }
+    : { method: shipping_method, price: shipping_price };
+
   renderBagQuantity(products_incart);
   // cart view in or off side bar mode
   $(".bag-items a").click(function (e) {
@@ -1852,6 +1882,17 @@ $(function () {
     renderBagQuantity(products_incart);
     renderCartView(products_incart);
     renderCartTotal(products_incart);
+    renderCartInCheckOut(products_incart);
+    // if the shipping option is enable
+    if ($(".shipping-step .shipping").hasClass("active")) {
+      renderTotalWithShipping(shipping_method, products_incart);
+    }
+    // go back to home page if there is no product in cart
+    if (window.location.pathname == "/product-checkout.html") {
+      if (products_incart.length === 0) {
+        renderNoProductBanner();
+      }
+    }
   });
   // able the check button if agree with term
   $("#item-agree").change(function (e) {
@@ -1864,15 +1905,826 @@ $(function () {
       $(".check_out").removeClass("active");
     }
   });
+
+  // order info dropdown toggle
+  $(".order-info-dropdown").click(function (e) {
+    e.preventDefault();
+    $(".order-info-wrapper").toggleClass("active");
+    $(".dropdown-toggle .fa")
+      .toggleClass("fa-angle-down")
+      .toggleClass("fa-angle-up");
+  });
+
+  // process to checkout page
+  renderCartInCheckOut(products_incart);
+  products_incart.length
+    ? renderContactInfo(contact_infomation)
+    : renderNoProductBanner();
+
+  $(".check_out").click(function (e) {
+    e.preventDefault();
+    window.location.href = "./product-checkout.html";
+  });
+
+  // process to check_out with the buy_now in product view
+  $("body").on("click", ".item-description .buy-it-now", function () {
+    let product_sku = $(this).parent().find(".sku").data("sku");
+    let product_quantity = parseInt(
+      $(this).parent().find(".item-number").val()
+    );
+    if (isNaN(product_quantity)) {
+      alert("PLEASE TYPE IN THE VALID NUMBER OF ITEMS");
+    } else {
+      let clicked_product = products.find(
+        (product) => product.sku === parseInt(product_sku)
+      );
+      // some check if element in array past a condition given in the call back function ==> return bool
+      if (
+        !products_incart.some(
+          (product) => product.product_data.sku === clicked_product.sku
+        )
+      ) {
+        products_incart.unshift({
+          product_data: clicked_product,
+          product_quantity: product_quantity,
+        });
+      } else {
+        products_incart.find(
+          (product) => product.product_data.sku === clicked_product.sku
+        ).product_quantity = product_quantity;
+      }
+      localStorage.setItem("product_incart", JSON.stringify(products_incart));
+      renderBagQuantity(products_incart);
+      renderCartView(products_incart);
+      renderCartTotal(products_incart);
+      window.location.href = "./product-checkout.html";
+    }
+  });
+
+  // contact information authentication
+  $("body").on("click", ".to_shipping .continue-btn", function (e) {
+    e.preventDefault();
+
+    // spinner Loading effect while check
+    $(".to_shipping .continue-btn").empty();
+    $(`<i class="fa fa-spinner"></i>`).appendTo(".to_shipping .continue-btn");
+
+    //all_input to be convert to array without checking apartment and first-name input after the effect
+    setTimeout(() => {
+      $(window).scrollTop(0);
+      $(".to_shipping .continue-btn").empty();
+      $(`<span>Continue to shipping</span>`).appendTo(
+        ".to_shipping .continue-btn"
+      );
+      let all_input = $(this)
+          .parents(".input-zone")
+          .find("input:text")
+          .parent()
+          .not(".apartment")
+          .not(".last-name"),
+        all_label = $(this).parents(".input-zone").find(".error-label"),
+        email_phone_input = $(this)
+          .parents(".input-zone")
+          .find(".email-phone input");
+      // check regular input with trimming the space "_"
+      // reset the authentication
+      all_label.removeClass("active");
+      all_input.find("input").removeClass("wrong");
+      // authenticate all the input if they are valid
+      [...all_input.find("input")].forEach((input) => {
+        if (input.value.trim().length === 0) {
+          all_input.find(input).addClass("wrong");
+          all_input
+            .find(input)
+            .parent()
+            .find(".error-label")
+            .addClass("active");
+        }
+      });
+
+      // authenticate the email and phone input
+      if (!isNaN(email_phone_input.val().trim())) {
+        // if use phone number instead of email
+        if (
+          !email_phone_input
+            .val()
+            .trim()
+            .match(/(09|01[2|6|8|9])+([0-9]{8})\b/)
+        ) {
+          email_phone_input.addClass("wrong");
+          email_phone_input.parent().find(".error-label").addClass("active");
+        }
+      } else {
+        // if using email instead
+        if (
+          !email_phone_input
+            .val()
+            .trim()
+            .match(
+              /^[a-z][a-z0-9_\.]{0,}@[a-z0-9]{2,}(\.[a-z0-9]{2,4}){1,2}$/gm
+            )
+        ) {
+          email_phone_input.addClass("wrong");
+          email_phone_input.parent().find(".error-label").addClass("active");
+        }
+      }
+
+      // console.log(Object.keys(contact_infomation).length);
+
+      // if all the infomation is authentication
+      if (all_input.find("input.wrong").length === 0) {
+        contact_infomation = {
+          id: $(".email-phone input").val().trim(),
+          lastname: $(".last-name input").val().trim(),
+          firstname: $(".first-name input").val().trim(),
+          address: $(".address input").val().trim(),
+          apartment: $(".apartment input").val().trim(),
+          city: $(".city input").val().trim(),
+          postalcode: $(".postcode input").val().trim(),
+        };
+
+        // if save infomation is enable
+        if ($("#save").prop("checked") === true) {
+          localStorage.setItem(
+            "contact_info",
+            JSON.stringify(contact_infomation)
+          );
+        }
+        // render ther shipping infomation and shipping method view
+        localStorage.removeItem("shipping_method");
+        $(".shipping-step a").removeClass("active");
+        $(".shipping-step .shipping")
+          .removeClass("disabled")
+          .addClass("active");
+        renderShippingInfo(contact_infomation);
+        renderTotalWithShipping(shipping_method, products_incart);
+
+        let curMethod = [
+          ...$(".shipping-method .method").find(".method-price"),
+        ].find(
+          (div) =>
+            parseInt(div.getAttribute("data-price")) === shipping_method.price
+        );
+
+        $(".shipping-method .method .select-check").removeClass("active");
+        $(".shipping-method .method")
+          .find(curMethod)
+          .parent()
+          .find(".select-check")
+          .addClass("active");
+      }
+    }, 2000);
+  });
+
+  // remove authentication checking when the user is typing
+  $(".input-zone input:text").keyup(function (e) {
+    $(this).removeClass("wrong");
+    $(this).parent().find(".error-label").removeClass("active");
+  });
+
+  // choose the shipping option
+  $("body").on("click", ".shipping-method .method", function () {
+    $(".shipping-method .method .select-check").removeClass("active");
+    $(this).find(".select-check").addClass("active");
+    shipping_price = $(this).find(".method-price").data("price");
+    shipping_method = $(this).find(".method-name").text();
+    shipping_method = { method: shipping_method.trim(), price: shipping_price };
+    renderTotalWithShipping(shipping_method, products_incart);
+  });
+
+  // shipping option selected
+  $("body").on("click", ".to_payment .continue-btn", function (e) {
+    e.preventDefault();
+    $(".to_payment .continue-btn").empty();
+    $(`<i class="fa fa-spinner"></i>`).appendTo(".to_payment .continue-btn");
+    localStorage.setItem("shipping_method", JSON.stringify(shipping_method));
+
+    setTimeout(() => {
+      $(".shipping-step a").removeClass("active");
+      $(".shipping-step .payment").removeClass("disabled").addClass("active");
+
+      renderPaymentInfo(contact_infomation, shipping_method);
+    }, 2000);
+  });
+
+  // payment method selected and complete the order
+  $("body").on("click", ".to_bill .continue-btn", function (e) {
+    e.preventDefault();
+    $(".to_bill .continue-btn").empty();
+    $(`<i class="fa fa-spinner"></i>`).appendTo(".to_bill .continue-btn");
+
+    setTimeout(() => {
+      let total = calcTotalPrice(products_incart);
+      renderBillInfo(contact_infomation, shipping_method, total);
+      localStorage.removeItem("product_incart");
+      products_incart = [];
+      renderBagQuantity(products_incart);
+      renderCartView(products_incart);
+    }, 2000);
+  });
+
+  // breadcrums
+  // information breadcrums
+  const toInformation = () => {
+    $(".shipping-step a").removeClass("active");
+    $(".shipping-step .information").addClass("active");
+    renderContactInfo(contact_infomation);
+    $(".shipping-step .shipping").removeClass("active").addClass("disabled");
+    $(".shipping-step .payment").removeClass("active").addClass("disabled");
+  };
+
+  $(".shipping-step .information").click(function (e) {
+    e.preventDefault();
+    toInformation();
+  });
+
+  $("body").on("click", ".to_payment .return-btn", function (e) {
+    e.preventDefault();
+    toInformation();
+  });
+
+  // change infomation btn
+  $("body").on("click", ".contact-info .change-btn", function (e) {
+    e.preventDefault();
+    toInformation();
+    $(".email-phone input").focus();
+  });
+
+  $("body").on("click", ".shipping-to .change-btn", function (e) {
+    e.preventDefault();
+    toInformation();
+    $(".first-name input").focus();
+  });
+
+  $("body").on("click", ".method-info .change-btn", function (e) {
+    e.preventDefault();
+    toShipping();
+  });
+
+  // shipping breadcrums
+  const toShipping = () => {
+    $(".shipping-step a").removeClass("active");
+    $(".shipping-step .shipping").addClass("active");
+    renderShippingInfo(contact_infomation);
+    renderTotalWithShipping(shipping_method, products_incart);
+
+    let curMethod = [
+      ...$(".shipping-method .method").find(".method-price"),
+    ].find(
+      (div) =>
+        parseInt(div.getAttribute("data-price")) === shipping_method.price
+    );
+
+    $(".shipping-method .method .select-check").removeClass("active");
+    $(".shipping-method .method")
+      .find(curMethod)
+      .parent()
+      .find(".select-check")
+      .addClass("active");
+  };
+  // click the shipping breadcrums
+  $(".shipping-step .shipping").click(function (e) {
+    e.preventDefault();
+    toShipping();
+  });
+  // return when in payment
+  $("body").on("click", ".to_bill .return-btn", function (e) {
+    e.preventDefault();
+    toShipping();
+  });
+
+  // payment breadcrums
+  $(".shipping-step .payment").click(function (e) {
+    e.preventDefault();
+    $(".shipping-step a").removeClass("active");
+    $(".shipping-step .payment").addClass("active");
+    renderPaymentInfo(contact_infomation, shipping_method);
+  });
+
+  // continue to shopping after checkout
+  $("body").on("click", ".no-product-banner .continue-shopping", function (e) {
+    e.preventDefault();
+    window.location.href = "./finale_proj.html";
+  });
+
+  $("body").on("click", ".to_shopping .continue-btn", function (e) {
+    e.preventDefault();
+    window.location.href = "./finale_proj.html";
+  });
 });
 
+function renderNoProductBanner() {
+  $(".checkout-area").empty();
+  $(`<div class="no-product-banner flex a-center jc-center">
+  <div class="banner-wrapper row a-center jc-center">
+    <i class="col-xs-12 fa fa-shopping-bag"></i>
+    <p class="col-xs-12">SHOPPING CART IS EMPTY</p>
+    <a class="col-xs-5 continue-shopping" href="">CONTINUE SHOPPING</a>
+  </div>
+</div>`).appendTo(".checkout-area");
+}
+
+function renderTotalWithShipping(method, list) {
+  $(".calc-shipping").empty();
+  $(`<span>$${method.price}.00</span>`).appendTo(".calc-shipping");
+  let total = calcTotalPrice(list);
+  $(".order-info-total .total").empty();
+  $(`<span>$${method.price + total}.00</span>`).appendTo(
+    ".order-info-total .total"
+  );
+  $(".summary-total .total").empty();
+  $(`<span>$${method.price + total}.00</span>`).appendTo(
+    ".summary-total .total"
+  );
+}
+function renderBillInfo(contact_info, shipping_method, total) {
+  $(window).scrollTop(0);
+  $(".checkout_step").empty();
+  $(".shipping-step").empty();
+  $(`<div class="bill-infomation">
+  <div class="bill-number row a-center">
+    <div class="col-xs-1 bill-check">
+      <i class="fa fa-check-circle-o"></i>
+    </div>
+    <div class="col-xs-11 bill-thank">
+      <div class="bill-id">
+        <p>Order <span class="id">#${
+          Math.floor(Math.random() * 1000) + 1
+        }</span></p>
+      </div>
+      <div class="thank-you">
+        <p>Thank you!</p>
+      </div>
+    </div>
+  </div>
+  <div class="bill-comfirmed box">
+    <p class="title">Your order is confirmed</p>
+    <p class="content">
+      You’ll receive a confirmation text with your order number
+      shortly.
+    </p>
+  </div>
+  <div class="bill-customer box">
+    <p class="title">Customer information</p>
+    <div class="bill-description row">
+      <div class="col-xs-12 col-lg-6 info-zone contact">
+        <p class="subtitle">Contact information</p>
+        <p class="subcontent contact_id">${contact_info.id}</p>
+      </div>
+      <div class="col-xs-12 col-lg-6 info-zone address">
+        <p class="subtitle">Shipping address</p>
+        <ul class="subcontent contact_id">
+          <li><span>Name : </span> ${contact_info.lastname} ${
+    contact_info.firstname
+  }</li>
+          <li><span>Address : </span> ${contact_info.address}</li>
+          <li><span>Apartment : </span> ${contact_info.apartment}</li>
+          <li><span>City : </span> ${contact_info.city}</li>
+          <li><span>Postal : </span> ${contact_info.postalcode}</li>
+        </ul>
+      </div>
+      <div class="col-xs-12 col-lg-6 info-zone ship">
+        <p class="subtitle">Shipping method</p>
+        <p class="subcontent ship_method">${shipping_method.method}</p>
+      </div>
+      <div class="col-xs-12 col-lg-6 info-zone pay">
+        <p class="subtitle">Payment method</p>
+        <p class="subcontent pay_method">
+          Cash on Delivery (COD) -
+          <span class="total">$${total + shipping_method.price}.00</span>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="continue-layout to_shopping row">
+    <div class="col-xs-12 col-lg-5 continue">
+      <a class="continue-btn" href="">Continue to shopping</a>
+    </div>
+    <div class="col-xs-12 col-lg-7"></div>
+  </div>
+</div>`).appendTo(".checkout_step");
+}
+function renderPaymentInfo(contact_info, shipping_method) {
+  $(window).scrollTop(0);
+  $(".checkout_step").empty();
+  $(`<div class="payment-infomation">
+  <div class="shipping-contact">
+    <div class="contact-info row">
+      <div class="col-xs-6 col-lg-2">
+        <p class="title">Contact</p>
+      </div>
+      <div class="col-xs-6 col-lg-2 change flex">
+        <a class="change-btn" href="">Change</a>
+      </div>
+      <div class="col-xs-12 col-lg-8 info">
+        <p class="info-contact">${contact_info.id}</p>
+      </div>
+    </div>
+    <div class="shipping-to method row">
+      <div class="col-xs-6 col-lg-2">
+        <p class="title">Ship to</p>
+      </div>
+      <div class="col-xs-6 col-lg-2 change flex">
+        <a class="change-btn" href="">Change</a>
+      </div>
+      <div class="col-xs-12 col-lg-8 info">
+        <ul class="info-shipping">
+          <li><span>Name : </span> ${contact_info.lastname} ${contact_info.firstname}</li>
+          <li><span>Address : </span> ${contact_info.address}</li>
+          <li><span>Apartment : </span> ${contact_info.apartment}</li>
+          <li><span>City : </span> ${contact_info.city}</li>
+          <li><span>Postal : </span> ${contact_info.postalcode}</li>
+        </ul>
+      </div>
+    </div>
+    <div class="method-info row">
+      <div class="col-xs-6 col-lg-2">
+        <p class="title">Method</p>
+      </div>
+      <div class="col-xs-6 col-lg-2 change flex">
+        <a class="change-btn" href="">Change</a>
+      </div>
+      <div class="col-xs-12 col-lg-8 info">
+        <p class="info-method">
+          <span class="name">${shipping_method.method}</span> -
+          <span class="price">$${shipping_method.price}.00</span>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="payment-option">
+    <h4 class="title">Payment</h4>
+    <p class="info">All transactions are secure and encrypted.</p>
+  </div>
+  <div class="payment-warning">
+    <p class="warning">
+      <i class="fa fa-exclamation-triangle"></i>This store can't
+      accept real orders or real payments.
+    </p>
+  </div>
+  <div class="payment-method">
+    <p class="method">Cash on Delivery (COD)</p>
+  </div>
+  <div class="continue-layout to_bill row a-center jc-spacebtw">
+    <div class="col-xs-12 col-lg-5 continue">
+      <a class="continue-btn" href="">Complete order</a>
+    </div>
+    <div class="col-xs-12 col-lg-7 return flex a-center">
+      <a class="return-btn to_payment" href=""
+        ><i class="fa fa-angle-left"></i>Return to shipping</a
+      >
+    </div>
+  </div>
+</div>`).appendTo(".checkout_step");
+}
+function renderShippingInfo(contact_info) {
+  $(window).scrollTop(0);
+  $(".checkout_step").empty();
+  $(`<div class="shipping-infomation">
+  <div class="shipping-contact">
+    <div class="contact-info row">
+      <div class="col-xs-6 col-lg-2">
+        <p class="title">Contact</p>
+      </div>
+      <div class="col-xs-6 col-lg-2 change flex">
+        <a class="change-btn" href="">Change</a>
+      </div>
+      <div class="col-xs-12 col-lg-8 info">
+        <p class="info-contact">${contact_info.id}</p>
+      </div>
+    </div>
+    <div class="shipping-to row">
+      <div class="col-xs-6 col-lg-2">
+        <p class="title">Ship to</p>
+      </div>
+      <div class="col-xs-6 col-lg-2 change flex">
+        <a class="change-btn" href="">Change</a>
+      </div>
+      <div class="col-xs-12 col-lg-8 info">
+        <ul class="info-shipping">
+          <li><span>Name : </span> ${contact_info.lastname} ${contact_info.firstname}</li>
+          <li><span>Address : </span> ${contact_info.address}</li>
+          <li><span>Apartment : </span> ${contact_info.apartment}</li>
+          <li><span>City : </span> ${contact_info.city}</li>
+          <li><span>Postal : </span> ${contact_info.postalcode}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="shipping-option">
+    <h4 class="title">Shipping method</h4>
+    <div class="shipping-method">
+      <div class="method row a-center jc-spacebtw">
+        <div class="col-xs-1 select-check active"></div>
+        <div class="col-xs-9 method-name">
+          <p>Normal Shipping</p>
+        </div>
+        <div class="col-xs-2 method-price" data-price="20">
+          $20.00
+        </div>
+      </div>
+      <div class="method row a-center jc-spacebtw">
+        <div class="col-xs-1 select-check"></div>
+        <div class="col-xs-9 method-name">
+          <p>Express Shipping</p>
+        </div>
+        <div class="col-xs-2 method-price" data-price="40">
+          $40.00
+        </div>
+      </div>
+      <div class="method row a-center jc-spacebtw">
+        <div class="col-xs-1 select-check"></div>
+        <div class="col-xs-9 method-name">
+          <p>
+            <span>Super Express </span>
+          </p>
+        </div>
+        <div class="col-xs-2 method-price" data-price="80">
+          $80.00
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="continue-layout to_payment row a-center jc-spacebtw"
+  >
+    <div class="col-xs-12 col-lg-5 continue">
+      <a class="continue-btn" href="">Continue to payment</a>
+    </div>
+    <div class="col-xs-12 col-lg-7 return flex a-center">
+      <a class="return-btn to_infomation" href=""
+        ><i class="fa fa-angle-left"></i>Return to information</a
+      >
+    </div>
+  </div>
+</div>`).appendTo(".checkout_step");
+}
+function renderContactInfo(contact_info) {
+  $(window).scrollTop(0);
+  $(".checkout_step").empty();
+  $(`<div class="contact-information">
+  <div class="title-login row">
+    <div class="col-xs-12 col-sm-6">
+      <h4 class="title">Contact information</h4>
+    </div>
+    <div class="col-xs-12 col-sm-6 login-wrapper flex">
+      <p class="login">
+        Already have an account? <a href="">Log in</a>
+      </p>
+    </div>
+  </div>
+  <div class="input-zone row">
+    <div class="col-xs-12 email-mobile-info">
+      <div class="email-phone">
+        <label class="input-label" for="ip1"
+          >Email or mobile phone number <span>*</span></label
+        >
+        <input
+          id="ip1"
+          class=""
+          type="text"
+          placeholder="e.g. : longnguyenhoang92@gmail.com or 0913190389"
+        />
+        <span class="error-label"
+          >Enter an email or mobile phone number</span
+        >
+      </div>
+      <div class="to-date flex a-center">
+        <input id="keep-me" type="checkbox" />
+        <label class="noselect" for="keep-me"
+          >Keep me up to date on news and exclusive offers</label
+        >
+      </div>
+    </div>
+    <div class="col-xs-12">
+      <h4 class="title">Shipping address</h4>
+    </div>
+    <div class="col-xs-12 col-lg-6 last-name">
+      <label class="input-label" for="ip2"
+        >Last Name (optional)</label
+      >
+      <input id="ip2" type="text" placeholder="e.g. : Nguyễn" />
+    </div>
+    <div class="col-xs-12 col-lg-6 first-name">
+      <label class="input-label" for="ip3"
+        >First Name <span>*</span></label
+      >
+      <input
+        id="ip3"
+        class=""
+        type="text"
+        placeholder="e.g. : Hoàng Long"
+      />
+      <span class="error-label">Enter a first name</span>
+    </div>
+    <div class="col-xs-12 address">
+      <label class="input-label" for="ip4"
+        >Address <span>*</span></label
+      >
+      <input
+        id="ip4"
+        class=""
+        type="text"
+        placeholder="e.g. : 27 Cầu Xéo , P.Tân Qúy, Q.Tân Phú, TP.HCM"
+      />
+      <span class="error-label">Enter an address</span>
+    </div>
+    <div class="col-xs-12 apartment">
+      <label class="input-label" for="ip5"
+        >Apartment, suite, etc. (optional)</label
+      >
+      <input id="ip5" type="text" placeholder="e.g. : 21" />
+    </div>
+    <div class="col-xs-12 col-lg-6 city">
+      <label class="input-label" for="ip6"
+        >City <span>*</span></label
+      >
+      <input
+        id="ip6"
+        class=""
+        type="text"
+        placeholder="e.g. : Hồ Chí Minh "
+      />
+      <span class="error-label">Enter a city</span>
+    </div>
+    <div class="col-xs-12 col-lg-6 postcode">
+      <label class="input-label" for="ip7"
+        >Postal Code <span>*</span></label
+      >
+      <input
+        id="ip7"
+        class=""
+        type="text"
+        placeholder="e.g. : 70000"
+      />
+      <span class="error-label">Enter a ZIP/ postal code</span>
+    </div>
+    <div class="col-xs-12 save-info flex a-center">
+      <input id="save" type="checkbox" />
+      <label class="noselect" for="save"
+        >Save this information for next time</label
+      >
+    </div>
+    <div class="col-xs-12 continue-layout to_shipping row">
+      <div class="col-xs-12 col-lg-5 continue">
+        <a class="continue-btn" href="">Continue to shipping</a>
+      </div>
+      <div class="col-xs-12 col-lg-7"></div>
+    </div>
+  </div>
+</div>`).appendTo(".checkout_step");
+  if (Object.keys(contact_info).length > 0) {
+    $(".shipping-step .shipping").removeClass("disabled");
+    $(".input-zone").empty();
+    $(`<div class="col-xs-12 email-mobile-info">
+    <div class="email-phone">
+      <label class="input-label" for="ip1"
+        >Email or mobile phone number <span>*</span></label
+      >
+      <input
+        id="ip1"
+        class=""
+        type="text"
+        placeholder="e.g. : longnguyenhoang92@gmail.com or 0913190389"
+        value="${contact_info.id}"
+      />
+      <span class="error-label"
+        >Enter an email or mobile phone number</span
+      >
+    </div>
+    <div class="to-date flex a-center">
+      <input id="keep-me" type="checkbox" />
+      <label class="noselect" for="keep-me"
+        >Keep me up to date on news and exclusive offers</label
+      >
+    </div>
+  </div>
+  <div class="col-xs-12">
+    <h4 class="title">Shipping address</h4>
+  </div>
+  <div class="col-xs-12 col-lg-6 last-name">
+    <label class="input-label" for="ip2"
+      >Last Name (optional)</label
+    >
+    <input id="ip2" type="text" placeholder="e.g. : Nguyễn" value="${contact_info.lastname}" />
+  </div>
+  <div class="col-xs-12 col-lg-6 first-name">
+    <label class="input-label" for="ip3"
+      >First Name <span>*</span></label
+    >
+    <input
+      id="ip3"
+      class=""
+      type="text"
+      placeholder="e.g. : Hoàng Long"
+      value="${contact_info.firstname}"
+    />
+    <span class="error-label">Enter a first name</span>
+  </div>
+  <div class="col-xs-12 address">
+    <label class="input-label" for="ip4"
+      >Address <span>*</span></label
+    >
+    <input
+      id="ip4"
+      class=""
+      type="text"
+      placeholder="e.g. : 27 Cầu Xéo , P.Tân Qúy, Q.Tân Phú, TP.HCM"
+      value="${contact_info.address}"
+    />
+    <span class="error-label">Enter an address</span>
+  </div>
+  <div class="col-xs-12 apartment">
+    <label class="input-label" for="ip5"
+      >Apartment, suite, etc. (optional)</label
+    >
+    <input id="ip5" type="text" placeholder="e.g. : 21" value="${contact_info.apartment}" />
+  </div>
+  <div class="col-xs-12 col-lg-6 city">
+    <label class="input-label" for="ip6"
+      >City <span>*</span></label
+    >
+    <input
+      id="ip6"
+      class=""
+      type="text"
+      placeholder="e.g. : Hồ Chí Minh "
+      value="${contact_info.city}"
+    />
+    <span class="error-label">Enter a city</span>
+  </div>
+  <div class="col-xs-12 col-lg-6 postcode">
+    <label class="input-label" for="ip7"
+      >Postal Code <span>*</span></label
+    >
+    <input
+      id="ip7"
+      class=""
+      type="text"
+      placeholder="e.g. : 70000"
+      value="${contact_info.postalcode}"
+    />
+    <span class="error-label">Enter a ZIP/ postal code</span>
+  </div>
+  <div class="col-xs-12 save-info flex a-center">
+    <input id="save" type="checkbox" />
+    <label class="noselect" for="save"
+      >Save this information for next time</label
+    >
+  </div>
+  <div class="col-xs-12 continue-layout to_shipping row">
+    <div class="col-xs-12 col-lg-5 continue">
+      <a class="continue-btn" href="">Continue to shipping</a>
+    </div>
+    <div class="col-xs-12 col-lg-7"></div>
+  </div>`).appendTo(".input-zone");
+  }
+}
+function renderCartInCheckOut(list) {
+  $(".order-info-wrapper .order-info-view").empty();
+  list.forEach((product) => {
+    $(`<li class="order-product-info row a-center jc-spacebtw">
+    <div
+      class="col-xs-2 order-product-thumbnail flex a-center jc-center"
+    >
+      <img
+        src=${product.product_data.img}
+        alt=""
+      />
+      <span class="order-quantity flex a-center jc-center"
+        ><span>${product.product_quantity}</span></span
+      >
+    </div>
+    <div class="col-xs-8 order-product-name">
+      <p>${product.product_data.name}</p>
+    </div>
+    <div class="col-xs-2 order-product-price">
+      <p>$${product.product_data.price * product.product_quantity}.00</p>
+    </div>
+  </li>`).appendTo(".order-info-wrapper .order-info-view");
+  });
+  let total = calcTotalPrice(list);
+
+  $(".calc-subtotal").empty();
+  $(".summary-total .total").empty();
+  $(".order-info-total .total").empty();
+  $(`<span>$${total}.00</span>`).appendTo(".calc-subtotal");
+  $(`<span>$${total}.00</span>`).appendTo(".summary-total .total");
+  $(`<span>$${total}.00</span>`).appendTo(".order-info-total .total");
+}
+
 function renderCartTotal(list) {
+  let total = calcTotalPrice(list);
+  $(".items-cart-body .items-total span").empty();
+  $(`<span>$${total}.00</span>`).appendTo(".items-cart-body .items-total span");
+}
+
+function calcTotalPrice(list) {
   let total = list.reduce((acc, product) => {
     acc += product.product_data.price * product.product_quantity;
     return acc;
   }, 0);
-  $(".items-cart-body .items-total span").empty();
-  $(`<span>$${total}.00</span>`).appendTo(".items-cart-body .items-total span");
+  return total;
 }
 function renderCartView(list) {
   $(".items-cart-body ul").empty();
@@ -2014,9 +2866,9 @@ function renderProductView(product) {
   </div>
   <div class="item-to-cart flex a-center">
     <div class="item-quantity flex a-center">
-      <span class="minus flex a-center jc-center">-</span>
+      <span class="minus flex a-center jc-center noselect">-</span>
       <input class="item-number" type="text" value="1" />
-      <span class="plus flex a-center jc-center">+</span>
+      <span class="plus flex a-center jc-center noselect">+</span>
     </div>
     <a class="add_to_cart flex a-center jc-center" href=""
       >ADD TO CART</a
@@ -2024,7 +2876,7 @@ function renderProductView(product) {
   </div>
   <div class="agree-term flex a-center">
     <input id="agree" type="checkbox" />
-    <label for="agree" class="agree-label"
+    <label for="agree" class="agree-label noselect"
       >I agree with the terms and conditions</label
     >
   </div>

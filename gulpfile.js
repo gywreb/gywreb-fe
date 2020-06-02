@@ -43,6 +43,7 @@ gulp.task("html", () => {
 gulp.task("image", () => {
   return gulp.src("src/img/**/*").pipe(imagemin()).pipe(gulp.dest("dist/img"));
 });
+
 gulp.task("watch", () => {
   browserSync.init({
     server: {

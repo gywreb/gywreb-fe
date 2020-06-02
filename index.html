@@ -8,12 +8,22 @@
   </head>
   <body>
     <div class="wrapper">
-      <div class="square"><button class="btn">click me</button></div>
-      <img src="dist/img/download.jpg" alt="" />
+      <div class="square">
+        <img src="dist/img/download.jpg" alt="" style="width: 50%;" />
+        <button class="btn" style="padding: 10px;">
+          click me
+        </button>
+      </div>
     </div>
     <ul></ul>
   </body>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
   <script src="./dist/js/main.min.js"></script>
+  <script>
+    $(".btn").click(function (e) {
+      e.preventDefault();
+      alert("notice me senpai");
+    });
+  </script>
 </html>
