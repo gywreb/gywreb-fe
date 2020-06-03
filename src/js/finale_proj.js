@@ -823,12 +823,12 @@ $(function () {
     $(".newsletter-signup .title").click(function (e) {
       e.preventDefault();
       if ($(".newsletter-signup .signup-zone").css("display") === "none") {
-        $(".open").css("display", "none");
-        $(".close").css("display", "block");
+        $(".newsletter-signup .open").css("display", "none");
+        $(".newsletter-signup .close").css("display", "block");
         $(".newsletter-signup .signup-zone").css("display", "block");
       } else {
-        $(".open").css("display", "block");
-        $(".close").css("display", "none");
+        $(".newsletter-signup .open").css("display", "block");
+        $(".newsletter-signup .close").css("display", "none");
         $(".newsletter-signup .signup-zone").css("display", "none");
       }
     });
@@ -1014,7 +1014,7 @@ $(function () {
     // render the option title
     $(
       `<span class="tag">${crums_get}</span> 
-        <span class="quantity"> (${filter_items_get.length})</span>`
+          <span class="quantity"> (${filter_items_get.length})</span>`
     ).appendTo(".filter-view .title-options .title");
     var crums_nograve = crums_get.split("'").join("");
     $(`.collections .${crums_nograve}`).addClass("active");
@@ -2216,12 +2216,12 @@ $(function () {
 function renderNoProductBanner() {
   $(".checkout-area").empty();
   $(`<div class="no-product-banner flex a-center jc-center">
-  <div class="banner-wrapper row a-center jc-center">
-    <i class="col-xs-12 fa fa-shopping-bag"></i>
-    <p class="col-xs-12">SHOPPING CART IS EMPTY</p>
-    <a class="col-xs-5 continue-shopping" href="">CONTINUE SHOPPING</a>
-  </div>
-</div>`).appendTo(".checkout-area");
+    <div class="banner-wrapper row a-center jc-center">
+      <i class="col-xs-12 fa fa-shopping-bag"></i>
+      <p class="col-xs-12">SHOPPING CART IS EMPTY</p>
+      <a class="col-xs-5 continue-shopping" href="">CONTINUE SHOPPING</a>
+    </div>
+  </div>`).appendTo(".checkout-area");
 }
 
 function renderTotalWithShipping(method, list) {
@@ -2242,239 +2242,341 @@ function renderBillInfo(contact_info, shipping_method, total) {
   $(".checkout_step").empty();
   $(".shipping-step").empty();
   $(`<div class="bill-infomation">
-  <div class="bill-number row a-center">
-    <div class="col-xs-1 bill-check">
-      <i class="fa fa-check-circle-o"></i>
+    <div class="bill-number row a-center">
+      <div class="col-xs-1 bill-check">
+        <i class="fa fa-check-circle-o"></i>
+      </div>
+      <div class="col-xs-11 bill-thank">
+        <div class="bill-id">
+          <p>Order <span class="id">#${
+            Math.floor(Math.random() * 1000) + 1
+          }</span></p>
+        </div>
+        <div class="thank-you">
+          <p>Thank you!</p>
+        </div>
+      </div>
     </div>
-    <div class="col-xs-11 bill-thank">
-      <div class="bill-id">
-        <p>Order <span class="id">#${
-          Math.floor(Math.random() * 1000) + 1
-        }</span></p>
-      </div>
-      <div class="thank-you">
-        <p>Thank you!</p>
-      </div>
+    <div class="bill-comfirmed box">
+      <p class="title">Your order is confirmed</p>
+      <p class="content">
+        You’ll receive a confirmation text with your order number
+        shortly.
+      </p>
     </div>
-  </div>
-  <div class="bill-comfirmed box">
-    <p class="title">Your order is confirmed</p>
-    <p class="content">
-      You’ll receive a confirmation text with your order number
-      shortly.
-    </p>
-  </div>
-  <div class="bill-customer box">
-    <p class="title">Customer information</p>
-    <div class="bill-description row">
-      <div class="col-xs-12 col-lg-6 info-zone contact">
-        <p class="subtitle">Contact information</p>
-        <p class="subcontent contact_id">${contact_info.id}</p>
-      </div>
-      <div class="col-xs-12 col-lg-6 info-zone address">
-        <p class="subtitle">Shipping address</p>
-        <ul class="subcontent contact_id">
-          <li><span>Name : </span> ${contact_info.lastname} ${
+    <div class="bill-customer box">
+      <p class="title">Customer information</p>
+      <div class="bill-description row">
+        <div class="col-xs-12 col-lg-6 info-zone contact">
+          <p class="subtitle">Contact information</p>
+          <p class="subcontent contact_id">${contact_info.id}</p>
+        </div>
+        <div class="col-xs-12 col-lg-6 info-zone address">
+          <p class="subtitle">Shipping address</p>
+          <ul class="subcontent contact_id">
+            <li><span>Name : </span> ${contact_info.lastname} ${
     contact_info.firstname
   }</li>
-          <li><span>Address : </span> ${contact_info.address}</li>
-          <li><span>Apartment : </span> ${contact_info.apartment}</li>
-          <li><span>City : </span> ${contact_info.city}</li>
-          <li><span>Postal : </span> ${contact_info.postalcode}</li>
-        </ul>
-      </div>
-      <div class="col-xs-12 col-lg-6 info-zone ship">
-        <p class="subtitle">Shipping method</p>
-        <p class="subcontent ship_method">${shipping_method.method}</p>
-      </div>
-      <div class="col-xs-12 col-lg-6 info-zone pay">
-        <p class="subtitle">Payment method</p>
-        <p class="subcontent pay_method">
-          Cash on Delivery (COD) -
-          <span class="total">$${total + shipping_method.price}.00</span>
-        </p>
+            <li><span>Address : </span> ${contact_info.address}</li>
+            <li><span>Apartment : </span> ${contact_info.apartment}</li>
+            <li><span>City : </span> ${contact_info.city}</li>
+            <li><span>Postal : </span> ${contact_info.postalcode}</li>
+          </ul>
+        </div>
+        <div class="col-xs-12 col-lg-6 info-zone ship">
+          <p class="subtitle">Shipping method</p>
+          <p class="subcontent ship_method">${shipping_method.method}</p>
+        </div>
+        <div class="col-xs-12 col-lg-6 info-zone pay">
+          <p class="subtitle">Payment method</p>
+          <p class="subcontent pay_method">
+            Cash on Delivery (COD) -
+            <span class="total">$${total + shipping_method.price}.00</span>
+          </p>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="continue-layout to_shopping row">
-    <div class="col-xs-12 col-lg-5 continue">
-      <a class="continue-btn" href="">Continue to shopping</a>
+    <div class="continue-layout to_shopping row">
+      <div class="col-xs-12 col-lg-5 continue">
+        <a class="continue-btn" href="">Continue to shopping</a>
+      </div>
+      <div class="col-xs-12 col-lg-7"></div>
     </div>
-    <div class="col-xs-12 col-lg-7"></div>
-  </div>
-</div>`).appendTo(".checkout_step");
+  </div>`).appendTo(".checkout_step");
 }
 function renderPaymentInfo(contact_info, shipping_method) {
   $(window).scrollTop(0);
   $(".checkout_step").empty();
   $(`<div class="payment-infomation">
-  <div class="shipping-contact">
-    <div class="contact-info row">
-      <div class="col-xs-6 col-lg-2">
-        <p class="title">Contact</p>
+    <div class="shipping-contact">
+      <div class="contact-info row">
+        <div class="col-xs-6 col-lg-2">
+          <p class="title">Contact</p>
+        </div>
+        <div class="col-xs-6 col-lg-2 change flex">
+          <a class="change-btn" href="">Change</a>
+        </div>
+        <div class="col-xs-12 col-lg-8 info">
+          <p class="info-contact">${contact_info.id}</p>
+        </div>
       </div>
-      <div class="col-xs-6 col-lg-2 change flex">
-        <a class="change-btn" href="">Change</a>
+      <div class="shipping-to method row">
+        <div class="col-xs-6 col-lg-2">
+          <p class="title">Ship to</p>
+        </div>
+        <div class="col-xs-6 col-lg-2 change flex">
+          <a class="change-btn" href="">Change</a>
+        </div>
+        <div class="col-xs-12 col-lg-8 info">
+          <ul class="info-shipping">
+            <li><span>Name : </span> ${contact_info.lastname} ${contact_info.firstname}</li>
+            <li><span>Address : </span> ${contact_info.address}</li>
+            <li><span>Apartment : </span> ${contact_info.apartment}</li>
+            <li><span>City : </span> ${contact_info.city}</li>
+            <li><span>Postal : </span> ${contact_info.postalcode}</li>
+          </ul>
+        </div>
       </div>
-      <div class="col-xs-12 col-lg-8 info">
-        <p class="info-contact">${contact_info.id}</p>
+      <div class="method-info row">
+        <div class="col-xs-6 col-lg-2">
+          <p class="title">Method</p>
+        </div>
+        <div class="col-xs-6 col-lg-2 change flex">
+          <a class="change-btn" href="">Change</a>
+        </div>
+        <div class="col-xs-12 col-lg-8 info">
+          <p class="info-method">
+            <span class="name">${shipping_method.method}</span> -
+            <span class="price">$${shipping_method.price}.00</span>
+          </p>
+        </div>
       </div>
     </div>
-    <div class="shipping-to method row">
-      <div class="col-xs-6 col-lg-2">
-        <p class="title">Ship to</p>
+    <div class="payment-option">
+      <h4 class="title">Payment</h4>
+      <p class="info">All transactions are secure and encrypted.</p>
+    </div>
+    <div class="payment-warning">
+      <p class="warning">
+        <i class="fa fa-exclamation-triangle"></i>This store can't
+        accept real orders or real payments.
+      </p>
+    </div>
+    <div class="payment-method">
+      <p class="method">Cash on Delivery (COD)</p>
+    </div>
+    <div class="continue-layout to_bill row a-center jc-spacebtw">
+      <div class="col-xs-12 col-lg-5 continue">
+        <a class="continue-btn" href="">Complete order</a>
       </div>
-      <div class="col-xs-6 col-lg-2 change flex">
-        <a class="change-btn" href="">Change</a>
-      </div>
-      <div class="col-xs-12 col-lg-8 info">
-        <ul class="info-shipping">
-          <li><span>Name : </span> ${contact_info.lastname} ${contact_info.firstname}</li>
-          <li><span>Address : </span> ${contact_info.address}</li>
-          <li><span>Apartment : </span> ${contact_info.apartment}</li>
-          <li><span>City : </span> ${contact_info.city}</li>
-          <li><span>Postal : </span> ${contact_info.postalcode}</li>
-        </ul>
+      <div class="col-xs-12 col-lg-7 return flex a-center">
+        <a class="return-btn to_payment" href=""
+          ><i class="fa fa-angle-left"></i>Return to shipping</a
+        >
       </div>
     </div>
-    <div class="method-info row">
-      <div class="col-xs-6 col-lg-2">
-        <p class="title">Method</p>
-      </div>
-      <div class="col-xs-6 col-lg-2 change flex">
-        <a class="change-btn" href="">Change</a>
-      </div>
-      <div class="col-xs-12 col-lg-8 info">
-        <p class="info-method">
-          <span class="name">${shipping_method.method}</span> -
-          <span class="price">$${shipping_method.price}.00</span>
-        </p>
-      </div>
-    </div>
-  </div>
-  <div class="payment-option">
-    <h4 class="title">Payment</h4>
-    <p class="info">All transactions are secure and encrypted.</p>
-  </div>
-  <div class="payment-warning">
-    <p class="warning">
-      <i class="fa fa-exclamation-triangle"></i>This store can't
-      accept real orders or real payments.
-    </p>
-  </div>
-  <div class="payment-method">
-    <p class="method">Cash on Delivery (COD)</p>
-  </div>
-  <div class="continue-layout to_bill row a-center jc-spacebtw">
-    <div class="col-xs-12 col-lg-5 continue">
-      <a class="continue-btn" href="">Complete order</a>
-    </div>
-    <div class="col-xs-12 col-lg-7 return flex a-center">
-      <a class="return-btn to_payment" href=""
-        ><i class="fa fa-angle-left"></i>Return to shipping</a
-      >
-    </div>
-  </div>
-</div>`).appendTo(".checkout_step");
+  </div>`).appendTo(".checkout_step");
 }
 function renderShippingInfo(contact_info) {
   $(window).scrollTop(0);
   $(".checkout_step").empty();
   $(`<div class="shipping-infomation">
-  <div class="shipping-contact">
-    <div class="contact-info row">
-      <div class="col-xs-6 col-lg-2">
-        <p class="title">Contact</p>
-      </div>
-      <div class="col-xs-6 col-lg-2 change flex">
-        <a class="change-btn" href="">Change</a>
-      </div>
-      <div class="col-xs-12 col-lg-8 info">
-        <p class="info-contact">${contact_info.id}</p>
-      </div>
-    </div>
-    <div class="shipping-to row">
-      <div class="col-xs-6 col-lg-2">
-        <p class="title">Ship to</p>
-      </div>
-      <div class="col-xs-6 col-lg-2 change flex">
-        <a class="change-btn" href="">Change</a>
-      </div>
-      <div class="col-xs-12 col-lg-8 info">
-        <ul class="info-shipping">
-          <li><span>Name : </span> ${contact_info.lastname} ${contact_info.firstname}</li>
-          <li><span>Address : </span> ${contact_info.address}</li>
-          <li><span>Apartment : </span> ${contact_info.apartment}</li>
-          <li><span>City : </span> ${contact_info.city}</li>
-          <li><span>Postal : </span> ${contact_info.postalcode}</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-  <div class="shipping-option">
-    <h4 class="title">Shipping method</h4>
-    <div class="shipping-method">
-      <div class="method row a-center jc-spacebtw">
-        <div class="col-xs-1 select-check active"></div>
-        <div class="col-xs-9 method-name">
-          <p>Normal Shipping</p>
+    <div class="shipping-contact">
+      <div class="contact-info row">
+        <div class="col-xs-6 col-lg-2">
+          <p class="title">Contact</p>
         </div>
-        <div class="col-xs-2 method-price" data-price="20">
-          $20.00
+        <div class="col-xs-6 col-lg-2 change flex">
+          <a class="change-btn" href="">Change</a>
+        </div>
+        <div class="col-xs-12 col-lg-8 info">
+          <p class="info-contact">${contact_info.id}</p>
         </div>
       </div>
-      <div class="method row a-center jc-spacebtw">
-        <div class="col-xs-1 select-check"></div>
-        <div class="col-xs-9 method-name">
-          <p>Express Shipping</p>
+      <div class="shipping-to row">
+        <div class="col-xs-6 col-lg-2">
+          <p class="title">Ship to</p>
         </div>
-        <div class="col-xs-2 method-price" data-price="40">
-          $40.00
+        <div class="col-xs-6 col-lg-2 change flex">
+          <a class="change-btn" href="">Change</a>
         </div>
-      </div>
-      <div class="method row a-center jc-spacebtw">
-        <div class="col-xs-1 select-check"></div>
-        <div class="col-xs-9 method-name">
-          <p>
-            <span>Super Express </span>
-          </p>
-        </div>
-        <div class="col-xs-2 method-price" data-price="80">
-          $80.00
+        <div class="col-xs-12 col-lg-8 info">
+          <ul class="info-shipping">
+            <li><span>Name : </span> ${contact_info.lastname} ${contact_info.firstname}</li>
+            <li><span>Address : </span> ${contact_info.address}</li>
+            <li><span>Apartment : </span> ${contact_info.apartment}</li>
+            <li><span>City : </span> ${contact_info.city}</li>
+            <li><span>Postal : </span> ${contact_info.postalcode}</li>
+          </ul>
         </div>
       </div>
     </div>
-  </div>
-  <div
-    class="continue-layout to_payment row a-center jc-spacebtw"
-  >
-    <div class="col-xs-12 col-lg-5 continue">
-      <a class="continue-btn" href="">Continue to payment</a>
+    <div class="shipping-option">
+      <h4 class="title">Shipping method</h4>
+      <div class="shipping-method">
+        <div class="method row a-center jc-spacebtw">
+          <div class="col-xs-1 select-check active"></div>
+          <div class="col-xs-9 method-name">
+            <p>Normal Shipping</p>
+          </div>
+          <div class="col-xs-2 method-price" data-price="20">
+            $20.00
+          </div>
+        </div>
+        <div class="method row a-center jc-spacebtw">
+          <div class="col-xs-1 select-check"></div>
+          <div class="col-xs-9 method-name">
+            <p>Express Shipping</p>
+          </div>
+          <div class="col-xs-2 method-price" data-price="40">
+            $40.00
+          </div>
+        </div>
+        <div class="method row a-center jc-spacebtw">
+          <div class="col-xs-1 select-check"></div>
+          <div class="col-xs-9 method-name">
+            <p>
+              <span>Super Express </span>
+            </p>
+          </div>
+          <div class="col-xs-2 method-price" data-price="80">
+            $80.00
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="col-xs-12 col-lg-7 return flex a-center">
-      <a class="return-btn to_infomation" href=""
-        ><i class="fa fa-angle-left"></i>Return to information</a
-      >
+    <div
+      class="continue-layout to_payment row a-center jc-spacebtw"
+    >
+      <div class="col-xs-12 col-lg-5 continue">
+        <a class="continue-btn" href="">Continue to payment</a>
+      </div>
+      <div class="col-xs-12 col-lg-7 return flex a-center">
+        <a class="return-btn to_infomation" href=""
+          ><i class="fa fa-angle-left"></i>Return to information</a
+        >
+      </div>
     </div>
-  </div>
-</div>`).appendTo(".checkout_step");
+  </div>`).appendTo(".checkout_step");
 }
 function renderContactInfo(contact_info) {
   $(window).scrollTop(0);
   $(".checkout_step").empty();
   $(`<div class="contact-information">
-  <div class="title-login row">
-    <div class="col-xs-12 col-sm-6">
-      <h4 class="title">Contact information</h4>
+    <div class="title-login row">
+      <div class="col-xs-12 col-sm-6">
+        <h4 class="title">Contact information</h4>
+      </div>
+      <div class="col-xs-12 col-sm-6 login-wrapper flex">
+        <p class="login">
+          Already have an account? <a href="">Log in</a>
+        </p>
+      </div>
     </div>
-    <div class="col-xs-12 col-sm-6 login-wrapper flex">
-      <p class="login">
-        Already have an account? <a href="">Log in</a>
-      </p>
+    <div class="input-zone row">
+      <div class="col-xs-12 email-mobile-info">
+        <div class="email-phone">
+          <label class="input-label" for="ip1"
+            >Email or mobile phone number <span>*</span></label
+          >
+          <input
+            id="ip1"
+            class=""
+            type="text"
+            placeholder="e.g. : longnguyenhoang92@gmail.com or 0913190389"
+          />
+          <span class="error-label"
+            >Enter an email or mobile phone number</span
+          >
+        </div>
+        <div class="to-date flex a-center">
+          <input id="keep-me" type="checkbox" />
+          <label class="noselect" for="keep-me"
+            >Keep me up to date on news and exclusive offers</label
+          >
+        </div>
+      </div>
+      <div class="col-xs-12">
+        <h4 class="title">Shipping address</h4>
+      </div>
+      <div class="col-xs-12 col-lg-6 last-name">
+        <label class="input-label" for="ip2"
+          >Last Name (optional)</label
+        >
+        <input id="ip2" type="text" placeholder="e.g. : Nguyễn" />
+      </div>
+      <div class="col-xs-12 col-lg-6 first-name">
+        <label class="input-label" for="ip3"
+          >First Name <span>*</span></label
+        >
+        <input
+          id="ip3"
+          class=""
+          type="text"
+          placeholder="e.g. : Hoàng Long"
+        />
+        <span class="error-label">Enter a first name</span>
+      </div>
+      <div class="col-xs-12 address">
+        <label class="input-label" for="ip4"
+          >Address <span>*</span></label
+        >
+        <input
+          id="ip4"
+          class=""
+          type="text"
+          placeholder="e.g. : 27 Cầu Xéo , P.Tân Qúy, Q.Tân Phú, TP.HCM"
+        />
+        <span class="error-label">Enter an address</span>
+      </div>
+      <div class="col-xs-12 apartment">
+        <label class="input-label" for="ip5"
+          >Apartment, suite, etc. (optional)</label
+        >
+        <input id="ip5" type="text" placeholder="e.g. : 21" />
+      </div>
+      <div class="col-xs-12 col-lg-6 city">
+        <label class="input-label" for="ip6"
+          >City <span>*</span></label
+        >
+        <input
+          id="ip6"
+          class=""
+          type="text"
+          placeholder="e.g. : Hồ Chí Minh "
+        />
+        <span class="error-label">Enter a city</span>
+      </div>
+      <div class="col-xs-12 col-lg-6 postcode">
+        <label class="input-label" for="ip7"
+          >Postal Code <span>*</span></label
+        >
+        <input
+          id="ip7"
+          class=""
+          type="text"
+          placeholder="e.g. : 70000"
+        />
+        <span class="error-label">Enter a ZIP/ postal code</span>
+      </div>
+      <div class="col-xs-12 save-info flex a-center">
+        <input id="save" type="checkbox" />
+        <label class="noselect" for="save"
+          >Save this information for next time</label
+        >
+      </div>
+      <div class="col-xs-12 continue-layout to_shipping row">
+        <div class="col-xs-12 col-lg-5 continue">
+          <a class="continue-btn" href="">Continue to shipping</a>
+        </div>
+        <div class="col-xs-12 col-lg-7"></div>
+      </div>
     </div>
-  </div>
-  <div class="input-zone row">
-    <div class="col-xs-12 email-mobile-info">
+  </div>`).appendTo(".checkout_step");
+  if (Object.keys(contact_info).length > 0) {
+    $(".shipping-step .shipping").removeClass("disabled");
+    $(".input-zone").empty();
+    $(`<div class="col-xs-12 email-mobile-info">
       <div class="email-phone">
         <label class="input-label" for="ip1"
           >Email or mobile phone number <span>*</span></label
@@ -2484,6 +2586,7 @@ function renderContactInfo(contact_info) {
           class=""
           type="text"
           placeholder="e.g. : longnguyenhoang92@gmail.com or 0913190389"
+          value="${contact_info.id}"
         />
         <span class="error-label"
           >Enter an email or mobile phone number</span
@@ -2503,7 +2606,7 @@ function renderContactInfo(contact_info) {
       <label class="input-label" for="ip2"
         >Last Name (optional)</label
       >
-      <input id="ip2" type="text" placeholder="e.g. : Nguyễn" />
+      <input id="ip2" type="text" placeholder="e.g. : Nguyễn" value="${contact_info.lastname}" />
     </div>
     <div class="col-xs-12 col-lg-6 first-name">
       <label class="input-label" for="ip3"
@@ -2514,6 +2617,7 @@ function renderContactInfo(contact_info) {
         class=""
         type="text"
         placeholder="e.g. : Hoàng Long"
+        value="${contact_info.firstname}"
       />
       <span class="error-label">Enter a first name</span>
     </div>
@@ -2526,6 +2630,7 @@ function renderContactInfo(contact_info) {
         class=""
         type="text"
         placeholder="e.g. : 27 Cầu Xéo , P.Tân Qúy, Q.Tân Phú, TP.HCM"
+        value="${contact_info.address}"
       />
       <span class="error-label">Enter an address</span>
     </div>
@@ -2533,7 +2638,7 @@ function renderContactInfo(contact_info) {
       <label class="input-label" for="ip5"
         >Apartment, suite, etc. (optional)</label
       >
-      <input id="ip5" type="text" placeholder="e.g. : 21" />
+      <input id="ip5" type="text" placeholder="e.g. : 21" value="${contact_info.apartment}" />
     </div>
     <div class="col-xs-12 col-lg-6 city">
       <label class="input-label" for="ip6"
@@ -2544,6 +2649,7 @@ function renderContactInfo(contact_info) {
         class=""
         type="text"
         placeholder="e.g. : Hồ Chí Minh "
+        value="${contact_info.city}"
       />
       <span class="error-label">Enter a city</span>
     </div>
@@ -2556,6 +2662,7 @@ function renderContactInfo(contact_info) {
         class=""
         type="text"
         placeholder="e.g. : 70000"
+        value="${contact_info.postalcode}"
       />
       <span class="error-label">Enter a ZIP/ postal code</span>
     </div>
@@ -2570,138 +2677,31 @@ function renderContactInfo(contact_info) {
         <a class="continue-btn" href="">Continue to shipping</a>
       </div>
       <div class="col-xs-12 col-lg-7"></div>
-    </div>
-  </div>
-</div>`).appendTo(".checkout_step");
-  if (Object.keys(contact_info).length > 0) {
-    $(".shipping-step .shipping").removeClass("disabled");
-    $(".input-zone").empty();
-    $(`<div class="col-xs-12 email-mobile-info">
-    <div class="email-phone">
-      <label class="input-label" for="ip1"
-        >Email or mobile phone number <span>*</span></label
-      >
-      <input
-        id="ip1"
-        class=""
-        type="text"
-        placeholder="e.g. : longnguyenhoang92@gmail.com or 0913190389"
-        value="${contact_info.id}"
-      />
-      <span class="error-label"
-        >Enter an email or mobile phone number</span
-      >
-    </div>
-    <div class="to-date flex a-center">
-      <input id="keep-me" type="checkbox" />
-      <label class="noselect" for="keep-me"
-        >Keep me up to date on news and exclusive offers</label
-      >
-    </div>
-  </div>
-  <div class="col-xs-12">
-    <h4 class="title">Shipping address</h4>
-  </div>
-  <div class="col-xs-12 col-lg-6 last-name">
-    <label class="input-label" for="ip2"
-      >Last Name (optional)</label
-    >
-    <input id="ip2" type="text" placeholder="e.g. : Nguyễn" value="${contact_info.lastname}" />
-  </div>
-  <div class="col-xs-12 col-lg-6 first-name">
-    <label class="input-label" for="ip3"
-      >First Name <span>*</span></label
-    >
-    <input
-      id="ip3"
-      class=""
-      type="text"
-      placeholder="e.g. : Hoàng Long"
-      value="${contact_info.firstname}"
-    />
-    <span class="error-label">Enter a first name</span>
-  </div>
-  <div class="col-xs-12 address">
-    <label class="input-label" for="ip4"
-      >Address <span>*</span></label
-    >
-    <input
-      id="ip4"
-      class=""
-      type="text"
-      placeholder="e.g. : 27 Cầu Xéo , P.Tân Qúy, Q.Tân Phú, TP.HCM"
-      value="${contact_info.address}"
-    />
-    <span class="error-label">Enter an address</span>
-  </div>
-  <div class="col-xs-12 apartment">
-    <label class="input-label" for="ip5"
-      >Apartment, suite, etc. (optional)</label
-    >
-    <input id="ip5" type="text" placeholder="e.g. : 21" value="${contact_info.apartment}" />
-  </div>
-  <div class="col-xs-12 col-lg-6 city">
-    <label class="input-label" for="ip6"
-      >City <span>*</span></label
-    >
-    <input
-      id="ip6"
-      class=""
-      type="text"
-      placeholder="e.g. : Hồ Chí Minh "
-      value="${contact_info.city}"
-    />
-    <span class="error-label">Enter a city</span>
-  </div>
-  <div class="col-xs-12 col-lg-6 postcode">
-    <label class="input-label" for="ip7"
-      >Postal Code <span>*</span></label
-    >
-    <input
-      id="ip7"
-      class=""
-      type="text"
-      placeholder="e.g. : 70000"
-      value="${contact_info.postalcode}"
-    />
-    <span class="error-label">Enter a ZIP/ postal code</span>
-  </div>
-  <div class="col-xs-12 save-info flex a-center">
-    <input id="save" type="checkbox" />
-    <label class="noselect" for="save"
-      >Save this information for next time</label
-    >
-  </div>
-  <div class="col-xs-12 continue-layout to_shipping row">
-    <div class="col-xs-12 col-lg-5 continue">
-      <a class="continue-btn" href="">Continue to shipping</a>
-    </div>
-    <div class="col-xs-12 col-lg-7"></div>
-  </div>`).appendTo(".input-zone");
+    </div>`).appendTo(".input-zone");
   }
 }
 function renderCartInCheckOut(list) {
   $(".order-info-wrapper .order-info-view").empty();
   list.forEach((product) => {
     $(`<li class="order-product-info row a-center jc-spacebtw">
-    <div
-      class="col-xs-2 order-product-thumbnail flex a-center jc-center"
-    >
-      <img
-        src=${product.product_data.img}
-        alt=""
-      />
-      <span class="order-quantity flex a-center jc-center"
-        ><span>${product.product_quantity}</span></span
+      <div
+        class="col-xs-2 order-product-thumbnail flex a-center jc-center"
       >
-    </div>
-    <div class="col-xs-8 order-product-name">
-      <p>${product.product_data.name}</p>
-    </div>
-    <div class="col-xs-2 order-product-price">
-      <p>$${product.product_data.price * product.product_quantity}.00</p>
-    </div>
-  </li>`).appendTo(".order-info-wrapper .order-info-view");
+        <img
+          src=${product.product_data.img}
+          alt=""
+        />
+        <span class="order-quantity flex a-center jc-center"
+          ><span>${product.product_quantity}</span></span
+        >
+      </div>
+      <div class="col-xs-8 order-product-name">
+        <p>${product.product_data.name}</p>
+      </div>
+      <div class="col-xs-2 order-product-price">
+        <p>$${product.product_data.price * product.product_quantity}.00</p>
+      </div>
+    </li>`).appendTo(".order-info-wrapper .order-info-view");
   });
   let total = calcTotalPrice(list);
 
@@ -2730,25 +2730,25 @@ function renderCartView(list) {
   $(".items-cart-body ul").empty();
   list.forEach((product) => {
     $(`<li class="items-cart-view">
-    <div class="row">
-      <div class="col-xs-4">
-        <img
-          src=${product.product_data.img}
-          alt=""
-        />
+      <div class="row">
+        <div class="col-xs-4">
+          <img
+            src=${product.product_data.img}
+            alt=""
+          />
+        </div>
+        <div class="col-xs-6 items-info">
+          <h6><a href="">${product.product_data.name}</a></h6>
+          <span class="items-info-quantity"><span>${product.product_quantity}</span>X</span>
+          <span class="items-info-money">$${product.product_data.price}.00</span>
+        </div>
+        <div class="col-xs-2">
+          <button class="trash-items" data-sku=${product.product_data.sku}
+            ><i class="fa fa-trash-o" aria-hidden="true"></i
+          ></button>
+        </div>
       </div>
-      <div class="col-xs-6 items-info">
-        <h6><a href="">${product.product_data.name}</a></h6>
-        <span class="items-info-quantity"><span>${product.product_quantity}</span>X</span>
-        <span class="items-info-money">$${product.product_data.price}.00</span>
-      </div>
-      <div class="col-xs-2">
-        <button class="trash-items" data-sku=${product.product_data.sku}
-          ><i class="fa fa-trash-o" aria-hidden="true"></i
-        ></button>
-      </div>
-    </div>
-  </li>`).appendTo(".items-cart-body ul");
+    </li>`).appendTo(".items-cart-body ul");
   });
 }
 function renderBagQuantity(list) {
@@ -2773,53 +2773,53 @@ function renderProductsQuickView(selector, list) {
       .owlCarousel(
         "add",
         `<div class="product-content">
-  <div class="hover-view-option">
-    <ul>
-      <li>
-        <a href=""><i class="fa fa-eye"></i></a>
-      </li>
-      <li>
-        <a href=""><i class="fa fa-heart-o"></i></a>
-      </li>
-      <li>
-        <a href=""><i class="fa fa-balance-scale"></i></a>
-      </li>
-    </ul>
-  </div>
-  <span class="sku">${product.sku}</span>
-  <a href="" class="view-img"
-    ><img
-      src=${product.img}
-      alt=""
-  /></a>
-  <div class="product-description">
-    <h4 class="product-content-brand"><a href="">${product.brand}</a></h4>
-    <ul class="rating flex a-center jc-center">
-      <li><i class="fa fa-star-o" aria-hidden="true"></i></li>
-      <li><i class="fa fa-star-o" aria-hidden="true"></i></li>
-      <li><i class="fa fa-star-o" aria-hidden="true"></i></li>
-      <li><i class="fa fa-star-o" aria-hidden="true"></i></li>
-      <li><i class="fa fa-star-o" aria-hidden="true"></i></li>
-    </ul>
-    <h5 class="product-content-name">
-      <a href="">${product.name}</a>
-    </h5>
-    <span class="product-content-price flex a-center jc-center"
-      >$${product.price}.00</span
-    >
-    <div class="add_to_cart flex a-center jc-center">
-      <a href="">
-        <i class="fa fa-cart-plus"></i>
-        ADD TO CART
-      </a>
+    <div class="hover-view-option">
+      <ul>
+        <li>
+          <a href=""><i class="fa fa-eye"></i></a>
+        </li>
+        <li>
+          <a href=""><i class="fa fa-heart-o"></i></a>
+        </li>
+        <li>
+          <a href=""><i class="fa fa-balance-scale"></i></a>
+        </li>
+      </ul>
     </div>
-  </div>
-  <ul class="view-option flex a-center jc-center">
-    <li><i class="fa fa-eye"></i></li>
-    <li><i class="fa fa-heart-o"></i></li>
-    <li><i class="fa fa-balance-scale"></i></li>
-  </ul>
-</div>`
+    <span class="sku">${product.sku}</span>
+    <a href="" class="view-img"
+      ><img
+        src=${product.img}
+        alt=""
+    /></a>
+    <div class="product-description">
+      <h4 class="product-content-brand"><a href="">${product.brand}</a></h4>
+      <ul class="rating flex a-center jc-center">
+        <li><i class="fa fa-star-o" aria-hidden="true"></i></li>
+        <li><i class="fa fa-star-o" aria-hidden="true"></i></li>
+        <li><i class="fa fa-star-o" aria-hidden="true"></i></li>
+        <li><i class="fa fa-star-o" aria-hidden="true"></i></li>
+        <li><i class="fa fa-star-o" aria-hidden="true"></i></li>
+      </ul>
+      <h5 class="product-content-name">
+        <a href="">${product.name}</a>
+      </h5>
+      <span class="product-content-price flex a-center jc-center"
+        >$${product.price}.00</span
+      >
+      <div class="add_to_cart flex a-center jc-center">
+        <a href="">
+          <i class="fa fa-cart-plus"></i>
+          ADD TO CART
+        </a>
+      </div>
+    </div>
+    <ul class="view-option flex a-center jc-center">
+      <li><i class="fa fa-eye"></i></li>
+      <li><i class="fa fa-heart-o"></i></li>
+      <li><i class="fa fa-balance-scale"></i></li>
+    </ul>
+  </div>`
       )
       .owlCarousel("update")
       .trigger("refresh.owl.carousel");
@@ -2840,116 +2840,116 @@ function renderSearchRes(product_name) {
 function renderProductView(product) {
   renderProductViewCarousel(product);
   $(`<h5 class="sku" data-sku=${product.sku}>SKU : <span>${product.sku}</span></h5>
-  <h5 class="available">Availability : <span>Many in stock</span></h5>
-  <h4 class="item-name">${product.name}</h4>
-  <h3 class="item-price">$${product.price}.00</h3>
-  <ul class="item-rating flex a-center">
-    <li><i class="fa fa-star-o" aria-hidden="true"></i></li>
-    <li><i class="fa fa-star-o" aria-hidden="true"></i></li>
-    <li><i class="fa fa-star-o" aria-hidden="true"></i></li>
-    <li><i class="fa fa-star-o" aria-hidden="true"></i></li>
-    <li><i class="fa fa-star-o" aria-hidden="true"></i></li>
-    <span><a href="">No reviews</a></span>
-  </ul>
-  <div class="item-buy-guide flex a-center jc-spacebtw">
-    <div class="size-shipping">
-      <a class="size" href=""
-        ><i class="fa fa-tshirt"></i>Size guide</a
+    <h5 class="available">Availability : <span>Many in stock</span></h5>
+    <h4 class="item-name">${product.name}</h4>
+    <h3 class="item-price">$${product.price}.00</h3>
+    <ul class="item-rating flex a-center">
+      <li><i class="fa fa-star-o" aria-hidden="true"></i></li>
+      <li><i class="fa fa-star-o" aria-hidden="true"></i></li>
+      <li><i class="fa fa-star-o" aria-hidden="true"></i></li>
+      <li><i class="fa fa-star-o" aria-hidden="true"></i></li>
+      <li><i class="fa fa-star-o" aria-hidden="true"></i></li>
+      <span><a href="">No reviews</a></span>
+    </ul>
+    <div class="item-buy-guide flex a-center jc-spacebtw">
+      <div class="size-shipping">
+        <a class="size" href=""
+          ><i class="fa fa-tshirt"></i>Size guide</a
+        >
+        <a class="shipping" href=""
+          ><i class="fa fa-box-open"></i>Shipping</a
+        >
+      </div>
+      <a class="ask" href=""
+        ><i class="fa fa-envelope"></i>Ask about this product</a
       >
-      <a class="shipping" href=""
-        ><i class="fa fa-box-open"></i>Shipping</a
+    </div>
+    <div class="item-to-cart flex a-center">
+      <div class="item-quantity flex a-center">
+        <span class="minus flex a-center jc-center noselect">-</span>
+        <input class="item-number" type="text" value="1" />
+        <span class="plus flex a-center jc-center noselect">+</span>
+      </div>
+      <a class="add_to_cart flex a-center jc-center" href=""
+        >ADD TO CART</a
       >
     </div>
-    <a class="ask" href=""
-      ><i class="fa fa-envelope"></i>Ask about this product</a
-    >
-  </div>
-  <div class="item-to-cart flex a-center">
-    <div class="item-quantity flex a-center">
-      <span class="minus flex a-center jc-center noselect">-</span>
-      <input class="item-number" type="text" value="1" />
-      <span class="plus flex a-center jc-center noselect">+</span>
+    <div class="agree-term flex a-center">
+      <input id="agree" type="checkbox" />
+      <label for="agree" class="agree-label noselect"
+        >I agree with the terms and conditions</label
+      >
     </div>
-    <a class="add_to_cart flex a-center jc-center" href=""
-      >ADD TO CART</a
-    >
-  </div>
-  <div class="agree-term flex a-center">
-    <input id="agree" type="checkbox" />
-    <label for="agree" class="agree-label noselect"
-      >I agree with the terms and conditions</label
-    >
-  </div>
-  <input
-    class="buy-it-now"
-    type="submit"
-    value="BUY IT NOW"
-    disabled
-  />
-  <a class="wishlist" href=""
-    ><i class="fa fa-heart-o"></i>ADD TO WISHLIST</a
-  >
-  <a class="compare" href=""
-    ><i class="fa fa-balance-scale"></i>ADD TO COMPARE</a
-  >
-  <div class="checkout">
-    <img
-      class="desktop-show"
-      src="https://cdn.shopify.com/s/files/1/0031/6604/4224/files/For_desktop_541x.png?v=1542727783"
-      alt=""
+    <input
+      class="buy-it-now"
+      type="submit"
+      value="BUY IT NOW"
+      disabled
     />
-    <img
-      class="mobile-show"
-      src="https://cdn.shopify.com/s/files/1/0031/6604/4224/files/For_mobile_541x.png?v=1542727783"
-      alt=""
-    />
-  </div>
-  <div class="extra-info">
-    <h3 class="item-brand">Brand : <a href="">${product.brand}</a></h3>
-    <h3>Barcode: <span>123456789</span></h3>
-    <h3>
-      Tags: <a href="">Vintage</a> , <a href="">Awesome</a> ,
-      <a href="">Summer</a> , <a href="">Beachwear</a>
-    </h3>
-  </div>
-  <div class="page-description">
-    <h5 class="title">DESCRIPTION</h5>
-    <div class="info">
-      <p>
-        We are proud to present our best premium Shopify theme -
-        Wokiee.
-      </p>
-      <p>
-        This is multi-purpose software that can be used for any type
-        of the store. Great variety of available options will make
-        customization process very easy.
-      </p>
-      <p>
-        Please, take a look at feature list and compare with our
-        competitors.
-      </p>
-      <p>
-        You can buy our theme and start your business online with
-        minimal time investments.
-      </p>
-      <p>
-        Wokiee support DropShipping app Oberlo. <br />
-        Wokiee Shopify theme is powerfool tool to create personal
-        webshop.
-      </p>
+    <a class="wishlist" href=""
+      ><i class="fa fa-heart-o"></i>ADD TO WISHLIST</a
+    >
+    <a class="compare" href=""
+      ><i class="fa fa-balance-scale"></i>ADD TO COMPARE</a
+    >
+    <div class="checkout">
+      <img
+        class="desktop-show"
+        src="https://cdn.shopify.com/s/files/1/0031/6604/4224/files/For_desktop_541x.png?v=1542727783"
+        alt=""
+      />
+      <img
+        class="mobile-show"
+        src="https://cdn.shopify.com/s/files/1/0031/6604/4224/files/For_mobile_541x.png?v=1542727783"
+        alt=""
+      />
     </div>
-  </div>
-  <div class="add-info">
-    <h5 class="title">ADDITIONAL INFORMATION</h5>
-    <div class="info">
-      <p class="color">Color : <span>Blue, Purple, White</span></p>
-      <p class="size">Size : <span>20, 24</span></p>
-      <p class="material">Material : <span>100% Polyester</span></p>
+    <div class="extra-info">
+      <h3 class="item-brand">Brand : <a href="">${product.brand}</a></h3>
+      <h3>Barcode: <span>123456789</span></h3>
+      <h3>
+        Tags: <a href="">Vintage</a> , <a href="">Awesome</a> ,
+        <a href="">Summer</a> , <a href="">Beachwear</a>
+      </h3>
     </div>
-  </div>
-  <div class="reviews">
-    <h5 class="title">REVIEWS</h5>
-  </div>`).appendTo(".item-description");
+    <div class="page-description">
+      <h5 class="title">DESCRIPTION</h5>
+      <div class="info">
+        <p>
+          We are proud to present our best premium Shopify theme -
+          Wokiee.
+        </p>
+        <p>
+          This is multi-purpose software that can be used for any type
+          of the store. Great variety of available options will make
+          customization process very easy.
+        </p>
+        <p>
+          Please, take a look at feature list and compare with our
+          competitors.
+        </p>
+        <p>
+          You can buy our theme and start your business online with
+          minimal time investments.
+        </p>
+        <p>
+          Wokiee support DropShipping app Oberlo. <br />
+          Wokiee Shopify theme is powerfool tool to create personal
+          webshop.
+        </p>
+      </div>
+    </div>
+    <div class="add-info">
+      <h5 class="title">ADDITIONAL INFORMATION</h5>
+      <div class="info">
+        <p class="color">Color : <span>Blue, Purple, White</span></p>
+        <p class="size">Size : <span>20, 24</span></p>
+        <p class="material">Material : <span>100% Polyester</span></p>
+      </div>
+    </div>
+    <div class="reviews">
+      <h5 class="title">REVIEWS</h5>
+    </div>`).appendTo(".item-description");
 }
 
 function renderProductViewCarousel(product) {
@@ -2959,21 +2959,21 @@ function renderProductViewCarousel(product) {
         .slick(
           "slickAdd",
           ` <div class="img-wrapper" data-slide="${position}">
-      <img
-        src=${picture}
-        alt=""
-      />
-    </div>`
+        <img
+          src=${picture}
+          alt=""
+        />
+      </div>`
         )
         .slick("resize");
       $(".item-view-gallery")
         .slick(
           "slickAdd",
           `<img
-      src=${picture}
-      alt=""
-      data-picture="${position}"
-    />`
+        src=${picture}
+        alt=""
+        data-picture="${position}"
+      />`
         )
         .slick("resize");
     });
@@ -2982,9 +2982,9 @@ function renderProductViewCarousel(product) {
       .slick(
         "slickAdd",
         `<img
-    src=${product.img}
-    alt=""
-  />`
+      src=${product.img}
+      alt=""
+    />`
       )
       .slick("resize");
   }
@@ -3002,57 +3002,57 @@ function showInfo(selector) {
 function renderGridOne(list) {
   list.forEach((product) => {
     $(`<div class="filtered-product-content row">
-    <span class="sku">${product.sku}</span>
-    <a href="" class="col-xs-4 col-lg-2 filtered-img"
-      ><img
-        src=${product.gallery[0]}
-        alt=""
-    /></a>
-    <div class="col-xs-8 col-lg-10 filtered-description">
-      <div class="row">
-        <div class="col-xs-12 col-lg-8">
-          <div class="filtered-info">
-            <a class="brand" href="">${product.brand}</a>
-            <ul class="rating flex a-center">
-              <li>
-                <i class="fa fa-star-o" aria-hidden="true"></i>
-              </li>
-              <li>
-                <i class="fa fa-star-o" aria-hidden="true"></i>
-              </li>
-              <li>
-                <i class="fa fa-star-o" aria-hidden="true"></i>
-              </li>
-              <li>
-                <i class="fa fa-star-o" aria-hidden="true"></i>
-              </li>
-              <li>
-                <i class="fa fa-star-o" aria-hidden="true"></i>
-              </li>
+      <span class="sku">${product.sku}</span>
+      <a href="" class="col-xs-4 col-lg-2 filtered-img"
+        ><img
+          src=${product.gallery[0]}
+          alt=""
+      /></a>
+      <div class="col-xs-8 col-lg-10 filtered-description">
+        <div class="row">
+          <div class="col-xs-12 col-lg-8">
+            <div class="filtered-info">
+              <a class="brand" href="">${product.brand}</a>
+              <ul class="rating flex a-center">
+                <li>
+                  <i class="fa fa-star-o" aria-hidden="true"></i>
+                </li>
+                <li>
+                  <i class="fa fa-star-o" aria-hidden="true"></i>
+                </li>
+                <li>
+                  <i class="fa fa-star-o" aria-hidden="true"></i>
+                </li>
+                <li>
+                  <i class="fa fa-star-o" aria-hidden="true"></i>
+                </li>
+                <li>
+                  <i class="fa fa-star-o" aria-hidden="true"></i>
+                </li>
+              </ul>
+              <a class="name" href="">${product.name}</a>
+              <p class="info">
+                We are proud to present our best premium Shopify
+                theme - Wokiee. This is multi-purpose software that
+                can be used for any type of the store. Great variety
+                of available...
+              </p>
+            </div>
+          </div>
+          <div class="col-xs-12 col-lg-4 filtered-buy row">
+            <h4 class="col-xs-12 price">$${product.price}.00</h4>
+            <a class="col-xs-8 col-lg-8 add-to-cart" href=""
+              >ADD TO CART</a
+            >
+            <ul class="col-xs-12 option flex a-center">
+              <li><i class="fa fa-eye"></i></li>
+              <li><i class="fa fa-heart-o"></i></li>
+              <li><i class="fa fa-balance-scale"></i></li>
             </ul>
-            <a class="name" href="">${product.name}</a>
-            <p class="info">
-              We are proud to present our best premium Shopify
-              theme - Wokiee. This is multi-purpose software that
-              can be used for any type of the store. Great variety
-              of available...
-            </p>
           </div>
         </div>
-        <div class="col-xs-12 col-lg-4 filtered-buy row">
-          <h4 class="col-xs-12 price">$${product.price}.00</h4>
-          <a class="col-xs-8 col-lg-8 add-to-cart" href=""
-            >ADD TO CART</a
-          >
-          <ul class="col-xs-12 option flex a-center">
-            <li><i class="fa fa-eye"></i></li>
-            <li><i class="fa fa-heart-o"></i></li>
-            <li><i class="fa fa-balance-scale"></i></li>
-          </ul>
-        </div>
       </div>
-    </div>
-  </div>`).appendTo(".filtered-product .filtered-product-group");
+    </div>`).appendTo(".filtered-product .filtered-product-group");
   });
 }
 // render a number of items only
@@ -3060,109 +3060,109 @@ function renderGridOne(list) {
 function renderGridTwo(list) {
   list.forEach((product) => {
     $(`<div class="col-xs-6 product-content filter">
-    <div class="hover-view-option">
-      <ul>
-        <li>
-          <a href=""><i class="fa fa-eye"></i></a>
-        </li>
-        <li>
-          <a href=""><i class="fa fa-heart-o"></i></a>
-        </li>
-        <li>
-          <a href=""><i class="fa fa-balance-scale"></i></a>
-        </li>
-      </ul>
-    </div>
-    <span class="sku">${product.sku}</span>
-    <a href="" class="view-img"
-      ><img
-        src=${product.gallery[0]}
-        alt=""
-    /></a>
-    <div class="product-description">
-      <h4 class="product-content-brand">
-        <a href="">${product.brand}</a>
-      </h4>
-      <ul class="rating flex a-center jc-center">
-        <li><i class="fa fa-star-o" aria-hidden="true"></i></li>
-        <li><i class="fa fa-star-o" aria-hidden="true"></i></li>
-        <li><i class="fa fa-star-o" aria-hidden="true"></i></li>
-        <li><i class="fa fa-star-o" aria-hidden="true"></i></li>
-        <li><i class="fa fa-star-o" aria-hidden="true"></i></li>
-      </ul>
-      <h5 class="product-content-name">
-        <a href="">${product.name}</a>
-      </h5>
-      <span class="product-content-price flex a-center jc-center"
-        >$${product.price}.00</span
-      >
-      <div class="add_to_cart flex a-center jc-center">
-        <a href="">
-          <i class="fa fa-cart-plus"></i>
-          ADD TO CART
-        </a>
+      <div class="hover-view-option">
+        <ul>
+          <li>
+            <a href=""><i class="fa fa-eye"></i></a>
+          </li>
+          <li>
+            <a href=""><i class="fa fa-heart-o"></i></a>
+          </li>
+          <li>
+            <a href=""><i class="fa fa-balance-scale"></i></a>
+          </li>
+        </ul>
       </div>
-    </div>
-    <ul class="view-option flex a-center jc-center">
-      <li><i class="fa fa-eye"></i></li>
-      <li><i class="fa fa-heart-o"></i></li>
-      <li><i class="fa fa-balance-scale"></i></li>
-    </ul>
-  </div>`).appendTo(".filtered-product .filtered-product-group");
+      <span class="sku">${product.sku}</span>
+      <a href="" class="view-img"
+        ><img
+          src=${product.gallery[0]}
+          alt=""
+      /></a>
+      <div class="product-description">
+        <h4 class="product-content-brand">
+          <a href="">${product.brand}</a>
+        </h4>
+        <ul class="rating flex a-center jc-center">
+          <li><i class="fa fa-star-o" aria-hidden="true"></i></li>
+          <li><i class="fa fa-star-o" aria-hidden="true"></i></li>
+          <li><i class="fa fa-star-o" aria-hidden="true"></i></li>
+          <li><i class="fa fa-star-o" aria-hidden="true"></i></li>
+          <li><i class="fa fa-star-o" aria-hidden="true"></i></li>
+        </ul>
+        <h5 class="product-content-name">
+          <a href="">${product.name}</a>
+        </h5>
+        <span class="product-content-price flex a-center jc-center"
+          >$${product.price}.00</span
+        >
+        <div class="add_to_cart flex a-center jc-center">
+          <a href="">
+            <i class="fa fa-cart-plus"></i>
+            ADD TO CART
+          </a>
+        </div>
+      </div>
+      <ul class="view-option flex a-center jc-center">
+        <li><i class="fa fa-eye"></i></li>
+        <li><i class="fa fa-heart-o"></i></li>
+        <li><i class="fa fa-balance-scale"></i></li>
+      </ul>
+    </div>`).appendTo(".filtered-product .filtered-product-group");
   });
 }
 
 function renderGridThree(list) {
   list.forEach((product) => {
     $(`<div class="col-xs-4 product-content filter">
-    <div class="hover-view-option">
-      <ul>
-        <li>
-          <a href=""><i class="fa fa-eye"></i></a>
-        </li>
-        <li>
-          <a href=""><i class="fa fa-heart-o"></i></a>
-        </li>
-        <li>
-          <a href=""><i class="fa fa-balance-scale"></i></a>
-        </li>
-      </ul>
-    </div>
-    <span class="sku">${product.sku}</span>
-    <a href="" class="view-img"
-      ><img
-        src=${product.gallery[0]}
-        alt=""
-    /></a>
-    <div class="product-description">
-      <h4 class="product-content-brand">
-        <a href="">${product.brand}</a>
-      </h4>
-      <ul class="rating flex a-center jc-center">
-        <li><i class="fa fa-star-o" aria-hidden="true"></i></li>
-        <li><i class="fa fa-star-o" aria-hidden="true"></i></li>
-        <li><i class="fa fa-star-o" aria-hidden="true"></i></li>
-        <li><i class="fa fa-star-o" aria-hidden="true"></i></li>
-        <li><i class="fa fa-star-o" aria-hidden="true"></i></li>
-      </ul>
-      <h5 class="product-content-name">
-        <a href="">${product.name}</a>
-      </h5>
-      <span class="product-content-price flex a-center jc-center"
-        >$${product.price}.00</span
-      >
-      <div class="add_to_cart flex a-center jc-center">
-        <a href="">
-          <i class="fa fa-cart-plus"></i>
-          ADD TO CART
-        </a>
+      <div class="hover-view-option">
+        <ul>
+          <li>
+            <a href=""><i class="fa fa-eye"></i></a>
+          </li>
+          <li>
+            <a href=""><i class="fa fa-heart-o"></i></a>
+          </li>
+          <li>
+            <a href=""><i class="fa fa-balance-scale"></i></a>
+          </li>
+        </ul>
       </div>
-    </div>
-    <ul class="view-option flex a-center jc-center">
-      <li><i class="fa fa-eye"></i></li>
-      <li><i class="fa fa-heart-o"></i></li>
-      <li><i class="fa fa-balance-scale"></i></li>
-    </ul>
-  </div>`).appendTo(".filtered-product .filtered-product-group");
+      <span class="sku">${product.sku}</span>
+      <a href="" class="view-img"
+        ><img
+          src=${product.gallery[0]}
+          alt=""
+      /></a>
+      <div class="product-description">
+        <h4 class="product-content-brand">
+          <a href="">${product.brand}</a>
+        </h4>
+        <ul class="rating flex a-center jc-center">
+          <li><i class="fa fa-star-o" aria-hidden="true"></i></li>
+          <li><i class="fa fa-star-o" aria-hidden="true"></i></li>
+          <li><i class="fa fa-star-o" aria-hidden="true"></i></li>
+          <li><i class="fa fa-star-o" aria-hidden="true"></i></li>
+          <li><i class="fa fa-star-o" aria-hidden="true"></i></li>
+        </ul>
+        <h5 class="product-content-name">
+          <a href="">${product.name}</a>
+        </h5>
+        <span class="product-content-price flex a-center jc-center"
+          >$${product.price}.00</span
+        >
+        <div class="add_to_cart flex a-center jc-center">
+          <a href="">
+            <i class="fa fa-cart-plus"></i>
+            ADD TO CART
+          </a>
+        </div>
+      </div>
+      <ul class="view-option flex a-center jc-center">
+        <li><i class="fa fa-eye"></i></li>
+        <li><i class="fa fa-heart-o"></i></li>
+        <li><i class="fa fa-balance-scale"></i></li>
+      </ul>
+    </div>`).appendTo(".filtered-product .filtered-product-group");
   });
 }
